@@ -1,198 +1,783 @@
-import { useState, useEffect } from "react";
-import { Link } from "wouter";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
-const IMAGES = {
-  studioHero: "https://d2xsxph8kpxj0f.cloudfront.net/310419663032373885/PUxVj88aG3TdKTkiHjSYV6/studio-hero-jwXknvZv5DswHDkt4MbmAu.webp",
-  narrativeHero: "https://d2xsxph8kpxj0f.cloudfront.net/310419663032373885/PUxVj88aG3TdKTkiHjSYV6/narrative-hero-Ri8parw7YQWdeHS2M5Lkpm.webp",
-};
+// CDN URLs
+const LAYER_BACK = "https://d2xsxph8kpxj0f.cloudfront.net/310419663032373885/PUxVj88aG3TdKTkiHjSYV6/glass-layer-back-6qyTZvvMcDcTCZQu42oDPc.png";
+const LAYER_MIDDLE = "https://d2xsxph8kpxj0f.cloudfront.net/310419663032373885/PUxVj88aG3TdKTkiHjSYV6/glass-layer-middle-gwXStoGDAgnv6rzi54kDvf.png";
+const LAYER_FRONT = "https://d2xsxph8kpxj0f.cloudfront.net/310419663032373885/PUxVj88aG3TdKTkiHjSYV6/glass-layer-front-eR2m3RT2yaoX8LYDtyuuzi.png";
+const PAINTING_1 = "https://d2xsxph8kpxj0f.cloudfront.net/310419663032373885/PUxVj88aG3TdKTkiHjSYV6/jose_painting_da1d7704.jpg";
+const PAINTING_2 = "https://d2xsxph8kpxj0f.cloudfront.net/310419663032373885/PUxVj88aG3TdKTkiHjSYV6/jose_painting2_e413bad3.jpg";
+const PAINTING_3 = "https://d2xsxph8kpxj0f.cloudfront.net/310419663032373885/PUxVj88aG3TdKTkiHjSYV6/jose_painting3_956d00f2.jpg";
 
-export default function Home() {
-  const [hoveredConcept, setHoveredConcept] = useState<1 | 2 | null>(null);
-  const [loaded, setLoaded] = useState(false);
+const NARRATIVE_PHRASES = [
+  { text: "I begin with glass...", start: 0, end: 0.2 },
+  { text: "...and layer what I see in the world.", start: 0.2, end: 0.45 },
+  { text: "Color speaks. Material remembers.", start: 0.45, end: 0.7 },
+  { text: "Every layer tells a story. Explore mine.", start: 0.7, end: 1.0 },
+];
+
+function FerruleLine({ className = "" }: { className?: string }) {
+  return (
+    <div
+      className={`w-full ${className}`}
+      style={{
+        height: "3px",
+        background: "linear-gradient(90deg, #B8B8B8, #D4D4D4, #A0A0A0, #C8C8C8, #B0B0B0)",
+      }}
+    />
+  );
+}
+
+function FerruleLineThin({ className = "" }: { className?: string }) {
+  return (
+    <div
+      className={`w-full ${className}`}
+      style={{
+        height: "1.5px",
+        background: "linear-gradient(90deg, #B8B8B8, #D4D4D4, #A0A0A0, #C8C8C8, #B0B0B0)",
+      }}
+    />
+  );
+}
+
+function Navigation() {
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoaded(true), 300);
-    return () => clearTimeout(timer);
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-white overflow-hidden relative">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A] via-[#111] to-[#0A0A0A]" />
-
-      {/* Content */}
-      <div className="relative z-10 min-h-screen flex flex-col">
-        {/* Header */}
-        <motion.header
-          initial={{ opacity: 0, y: -20 }}
-          animate={loaded ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="px-8 pt-8 pb-4"
-        >
-          <p className="font-['Roboto_Mono'] text-[11px] tracking-[3px] uppercase text-[#6B6B6B]">
-            Website Redesign Concepts
-          </p>
-        </motion.header>
-
-        {/* Main */}
-        <div className="flex-1 flex flex-col justify-center px-8 pb-8">
-          {/* Title */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={loaded ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1, delay: 0.8 }}
-            className="mb-16"
+    <motion.header
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+      style={{
+        backgroundColor: scrolled ? "rgba(250, 246, 240, 0.95)" : "transparent",
+        backdropFilter: scrolled ? "blur(12px)" : "none",
+      }}
+    >
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+        <div className="flex items-center justify-between h-16 md:h-20">
+          <motion.a
+            href="#"
+            className="font-sans text-sm md:text-base tracking-[0.35em] uppercase"
+            style={{
+              fontWeight: 200,
+              color: "#2A2A2A",
+              textShadow: scrolled ? "none" : "0 0 20px rgba(250,246,240,0.9)",
+            }}
+            whileHover={{ opacity: 0.6 }}
+            transition={{ duration: 0.3 }}
           >
-            <h1 className="font-['Anton'] text-[clamp(3rem,8vw,7rem)] leading-[0.95] tracking-[1px] uppercase">
-              <span className="text-white">José</span>
-              <br />
-              <span className="text-[#D4A843]">Awo</span>
-              <span className="text-white"> Art</span>
-            </h1>
-            <p className="font-['Lora'] text-[#888] text-lg mt-6 max-w-xl leading-relaxed italic">
-              Two distinct visions for a world-class artist portfolio — choose a concept to explore.
-            </p>
-          </motion.div>
+            José Awo
+          </motion.a>
+          <nav className="hidden md:flex items-center gap-8">
+            {["Work", "About", "Collect", "Contact"].map((item) => (
+              <motion.a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className="font-sans text-xs tracking-[0.25em] uppercase relative"
+                style={{ fontWeight: 300, color: "#4A4A4A", textShadow: scrolled ? "none" : "0 0 15px rgba(250,246,240,0.9)" }}
+                whileHover={{ color: "#2A2A2A" }}
+                transition={{ duration: 0.3 }}
+              >
+                {item}
+                <motion.span
+                  className="absolute -bottom-1 left-0 h-[1px] bg-[#B8B8B8]"
+                  initial={{ width: 0 }}
+                  whileHover={{ width: "100%" }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                />
+              </motion.a>
+            ))}
+          </nav>
+          {/* Mobile menu button */}
+          <button className="md:hidden flex flex-col gap-1.5">
+            <span className="w-5 h-[1px] bg-[#2A2A2A]" />
+            <span className="w-5 h-[1px] bg-[#2A2A2A]" />
+          </button>
+        </div>
+      </div>
+      <FerruleLineThin className={`transition-opacity duration-500 ${scrolled ? "opacity-100" : "opacity-0"}`} />
+    </motion.header>
+  );
+}
 
-          {/* Concept Cards */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-6xl">
-            {/* Concept 1 */}
-            <motion.div
-              initial={{ opacity: 0, y: 60 }}
-              animate={loaded ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 1.2 }}
-            >
-              <Link href="/concept-1">
-                <div
-                  className="group relative overflow-hidden cursor-pointer"
-                  onMouseEnter={() => setHoveredConcept(1)}
-                  onMouseLeave={() => setHoveredConcept(null)}
-                >
-                  {/* Image */}
-                  <div className="relative aspect-[16/10] overflow-hidden">
-                    <img
-                      src={IMAGES.studioHero}
-                      alt="The Digital Studio concept"
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+function ParallaxHero() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
 
-                    {/* Overlay content */}
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="font-['Roboto_Mono'] text-[11px] tracking-[2px] uppercase text-[#B7410E]">
-                          Concept 01
-                        </span>
-                        <span className="w-8 h-[1px] bg-[#B7410E]" />
-                      </div>
-                      <h2 className="font-['Roboto_Mono'] text-2xl md:text-3xl font-medium tracking-[1.5px] uppercase text-white mb-2">
-                        The Digital Studio
-                      </h2>
-                      <p className="font-['Work_Sans'] text-sm text-[#ccc] max-w-md leading-relaxed">
-                        Brutalist honesty meets industrial elegance. Light backgrounds, monospaced typography, material-driven animations.
-                      </p>
+  // Smooth spring for scroll progress
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 80,
+    damping: 30,
+    restDelta: 0.001,
+  });
 
-                      {/* CTA */}
-                      <div className="flex items-center gap-2 mt-4 text-[#B7410E] font-['Roboto_Mono'] text-xs tracking-[2px] uppercase transition-all duration-300 group-hover:gap-4">
-                        <span>Explore Concept</span>
-                        <ArrowRight size={14} />
-                      </div>
-                    </div>
-                  </div>
+  // Layer speeds: back = slow, middle = medium, front = fast
+  const backY = useTransform(smoothProgress, [0, 1], ["0%", "-15%"]);
+  const middleY = useTransform(smoothProgress, [0, 1], ["0%", "-40%"]);
+  const frontY = useTransform(smoothProgress, [0, 1], ["0%", "-70%"]);
 
-                  {/* Border accent */}
-                  <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#B7410E] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-                </div>
-              </Link>
+  // Opacity fade out as we scroll past
+  const heroOpacity = useTransform(smoothProgress, [0.7, 1], [1, 0]);
 
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2 mt-4">
-                {["Light Theme", "Industrial", "Collector-Focused", "FLIP Animations"].map((tag) => (
-                  <span key={tag} className="font-['Roboto_Mono'] text-[10px] tracking-[1px] uppercase text-[#666] border border-[#333] px-3 py-1">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
+  // Track current narrative phrase
+  const [currentPhrase, setCurrentPhrase] = useState(0);
+  const [phraseOpacity, setPhraseOpacity] = useState(1);
 
-            {/* Concept 2 */}
-            <motion.div
-              initial={{ opacity: 0, y: 60 }}
-              animate={loaded ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 1.4 }}
-            >
-              <Link href="/concept-2">
-                <div
-                  className="group relative overflow-hidden cursor-pointer"
-                  onMouseEnter={() => setHoveredConcept(2)}
-                  onMouseLeave={() => setHoveredConcept(null)}
-                >
-                  {/* Image */}
-                  <div className="relative aspect-[16/10] overflow-hidden">
-                    <img
-                      src={IMAGES.narrativeHero}
-                      alt="The Immersive Narrative concept"
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.on("change", (v) => {
+      const idx = NARRATIVE_PHRASES.findIndex(
+        (p) => v >= p.start && v < p.end
+      );
+      if (idx !== -1 && idx !== currentPhrase) {
+        setPhraseOpacity(0);
+        setTimeout(() => {
+          setCurrentPhrase(idx);
+          setPhraseOpacity(1);
+        }, 300);
+      }
+    });
+    return unsubscribe;
+  }, [scrollYProgress, currentPhrase]);
 
-                    {/* Overlay content */}
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="font-['Anton'] text-[11px] tracking-[2px] uppercase text-[#D4A843]">
-                          Concept 02
-                        </span>
-                        <span className="w-8 h-[1px] bg-[#D4A843]" />
-                      </div>
-                      <h2 className="font-['Anton'] text-2xl md:text-3xl tracking-[1px] uppercase text-white mb-2">
-                        The Immersive Narrative
-                      </h2>
-                      <p className="font-['Lora'] text-sm text-[#ccc] max-w-md leading-relaxed">
-                        Cinematic storytelling through darkness and light. Art as activism, guided narrative, emotional resonance.
-                      </p>
+  return (
+    <div
+      ref={containerRef}
+      className="relative"
+      style={{ height: "300vh" }}
+    >
+      {/* Sticky viewport */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden">
+        {/* Glass layers - full width, face-on */}
+        <motion.div
+          className="absolute inset-0 w-full h-full"
+          style={{ y: backY, opacity: heroOpacity }}
+        >
+          <img
+            src={LAYER_BACK}
+            alt=""
+            className="w-full h-full object-cover"
+            style={{ transform: "scale(1.3)", opacity: 0.7 }}
+          />
+        </motion.div>
 
-                      {/* CTA */}
-                      <div className="flex items-center gap-2 mt-4 text-[#D4A843] font-['Anton'] text-xs tracking-[2px] uppercase transition-all duration-300 group-hover:gap-4">
-                        <span>Explore Concept</span>
-                        <ArrowRight size={14} />
-                      </div>
-                    </div>
-                  </div>
+        <motion.div
+          className="absolute inset-0 w-full h-full"
+          style={{ y: middleY, opacity: heroOpacity }}
+        >
+          <img
+            src={LAYER_MIDDLE}
+            alt=""
+            className="w-full h-full object-cover"
+            style={{ transform: "scale(1.3)", opacity: 0.6, mixBlendMode: "multiply" }}
+          />
+        </motion.div>
 
-                  {/* Border accent */}
-                  <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#D4A843] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-                </div>
-              </Link>
+        <motion.div
+          className="absolute inset-0 w-full h-full"
+          style={{ y: frontY, opacity: heroOpacity }}
+        >
+          <img
+            src={LAYER_FRONT}
+            alt=""
+            className="w-full h-full object-cover"
+            style={{ transform: "scale(1.3)", opacity: 0.45, mixBlendMode: "multiply" }}
+          />
+        </motion.div>
 
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2 mt-4">
-                {["Dark Theme", "Cinematic", "Story-Driven", "WebGL Effects"].map((tag) => (
-                  <span key={tag} className="font-['Anton'] text-[10px] tracking-[2px] uppercase text-[#666] border border-[#333] px-3 py-1">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          </div>
+        {/* Narrative text floating between layers */}
+        {/* Soft radial vignette to help text readability */}
+        <div
+          className="absolute inset-0 pointer-events-none z-[5]"
+          style={{
+            background: "radial-gradient(ellipse 50% 40% at 50% 50%, rgba(250,246,240,0.55) 0%, transparent 100%)",
+          }}
+        />
+
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+          <motion.p
+            className="font-serif text-2xl md:text-4xl lg:text-5xl italic text-center px-8 max-w-3xl leading-relaxed"
+            style={{
+              color: "#2A2A2A",
+              opacity: phraseOpacity,
+              textShadow: "0 0 30px rgba(250,246,240,1), 0 0 60px rgba(250,246,240,0.95), 0 0 100px rgba(250,246,240,0.8), 0 0 150px rgba(250,246,240,0.6)",
+            }}
+            key={currentPhrase}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: phraseOpacity, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            {NARRATIVE_PHRASES[currentPhrase]?.text}
+          </motion.p>
         </div>
 
-        {/* Footer */}
-        <motion.footer
-          initial={{ opacity: 0 }}
-          animate={loaded ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 1.8 }}
-          className="px-8 pb-8 flex justify-between items-end"
+        {/* Scroll indicator */}
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-10"
+          style={{ opacity: useTransform(smoothProgress, [0, 0.15], [1, 0]) }}
         >
-          <p className="font-['Roboto_Mono'] text-[10px] tracking-[2px] uppercase text-[#444]">
-            Scroll within each concept to see all pages
-          </p>
-          <p className="font-['Roboto_Mono'] text-[10px] tracking-[2px] uppercase text-[#444]">
-            2026
-          </p>
-        </motion.footer>
+          <span
+            className="font-sans text-[10px] tracking-[0.3em] uppercase"
+            style={{ color: "#9A9590", fontWeight: 300 }}
+          >
+            Scroll to explore
+          </span>
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <svg width="16" height="24" viewBox="0 0 16 24" fill="none">
+              <path d="M8 4V20M8 20L2 14M8 20L14 14" stroke="#B8B8B8" strokeWidth="1" />
+            </svg>
+          </motion.div>
+        </motion.div>
       </div>
+    </div>
+  );
+}
+
+function FeaturedWork() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "start 0.3"],
+  });
+  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const y = useTransform(scrollYProgress, [0, 1], [60, 0]);
+
+  return (
+    <motion.section
+      ref={ref}
+      id="work"
+      className="relative py-24 md:py-32"
+      style={{ backgroundColor: "var(--cream)" }}
+    >
+      <FerruleLine />
+      <motion.div
+        className="max-w-[1200px] mx-auto px-6 md:px-10 pt-20 md:pt-28"
+        style={{ opacity, y }}
+      >
+        {/* Featured artwork */}
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
+          <div className="lg:w-3/5">
+            <motion.div
+              className="relative overflow-hidden"
+              whileHover={{ scale: 1.01 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+            >
+              <img
+                src={PAINTING_3}
+                alt="Red portrait — Mixed Media on Glass"
+                className="w-full h-auto"
+                style={{ display: "block" }}
+              />
+            </motion.div>
+          </div>
+          <div className="lg:w-2/5 lg:pt-12">
+            <p
+              className="font-sans text-[10px] tracking-[0.3em] uppercase mb-4"
+              style={{ color: "#B8B8B8", fontWeight: 300 }}
+            >
+              Featured Work
+            </p>
+            <h2
+              className="font-serif text-3xl md:text-4xl mb-6 leading-tight"
+              style={{ fontWeight: 400, color: "#2A2A2A" }}
+            >
+              Untitled (Red Portrait)
+            </h2>
+            <p
+              className="font-sans text-sm mb-2"
+              style={{ color: "#9A9590", fontWeight: 300 }}
+            >
+              Mixed Media on Glass, 2024
+            </p>
+            <p
+              className="font-sans text-sm mb-8 leading-relaxed"
+              style={{ color: "#9A9590", fontWeight: 300 }}
+            >
+              48 × 36 inches
+            </p>
+            <p
+              className="font-serif text-lg italic leading-relaxed mb-10"
+              style={{ color: "#4A4A4A", fontWeight: 300 }}
+            >
+              Through powerful imagery, colors and materials, my art highlights
+              what is happening in society.
+            </p>
+            <motion.a
+              href="#collect"
+              className="inline-flex items-center gap-3 font-sans text-xs tracking-[0.25em] uppercase group"
+              style={{ color: "#2A2A2A", fontWeight: 300 }}
+              whileHover={{ x: 4 }}
+              transition={{ duration: 0.3 }}
+            >
+              Inquire About This Work
+              <svg width="20" height="8" viewBox="0 0 20 8" fill="none" className="transition-transform group-hover:translate-x-1">
+                <path d="M0 4H18M18 4L14 0.5M18 4L14 7.5" stroke="#B8B8B8" strokeWidth="0.75" />
+              </svg>
+            </motion.a>
+          </div>
+        </div>
+      </motion.div>
+    </motion.section>
+  );
+}
+
+function CategoryCard({
+  title,
+  image,
+  description,
+  link,
+  index,
+}: {
+  title: string;
+  image: string;
+  description: string;
+  link: string;
+  index: number;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "start 0.5"],
+  });
+  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const y = useTransform(scrollYProgress, [0, 1], [40, 0]);
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{ opacity, y }}
+      transition={{ delay: index * 0.15 }}
+    >
+      <motion.a
+        href={link}
+        className="block group"
+        whileHover="hover"
+      >
+        <div className="relative overflow-hidden mb-5">
+          <motion.img
+            src={image}
+            alt={title}
+            className="w-full aspect-[4/3] object-cover"
+            variants={{
+              hover: { scale: 1.04 },
+            }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+          />
+          {/* Ferrule-colored border on hover */}
+          <motion.div
+            className="absolute inset-0 pointer-events-none"
+            style={{ border: "2px solid transparent" }}
+            variants={{
+              hover: { borderColor: "#B8B8B8" },
+            }}
+            transition={{ duration: 0.4 }}
+          />
+        </div>
+        <div className="flex items-start justify-between">
+          <div>
+            <h3
+              className="font-sans text-xs tracking-[0.25em] uppercase mb-2"
+              style={{ fontWeight: 400, color: "#2A2A2A" }}
+            >
+              {title}
+            </h3>
+            <p
+              className="font-sans text-sm leading-relaxed max-w-xs"
+              style={{ fontWeight: 300, color: "#9A9590" }}
+            >
+              {description}
+            </p>
+          </div>
+          <motion.svg
+            width="20"
+            height="8"
+            viewBox="0 0 20 8"
+            fill="none"
+            className="mt-1 flex-shrink-0"
+            variants={{
+              hover: { x: 4 },
+            }}
+            transition={{ duration: 0.3 }}
+          >
+            <path d="M0 4H18M18 4L14 0.5M18 4L14 7.5" stroke="#B8B8B8" strokeWidth="0.75" />
+          </motion.svg>
+        </div>
+      </motion.a>
+    </motion.div>
+  );
+}
+
+function Categories() {
+  return (
+    <section className="py-20 md:py-28" style={{ backgroundColor: "var(--cream)" }}>
+      <div className="max-w-[1200px] mx-auto px-6 md:px-10">
+        <FerruleLineThin className="mb-16" />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+          <CategoryCard
+            title="Exhibitions"
+            image={PAINTING_1}
+            description="Gallery shows and museum installations showcasing mixed-media works on glass."
+            link="#exhibitions"
+            index={0}
+          />
+          <CategoryCard
+            title="Commissions"
+            image={PAINTING_2}
+            description="Custom works created for private collectors, corporate spaces, and public venues."
+            link="#commissions"
+            index={1}
+          />
+          <CategoryCard
+            title="Community"
+            image={PAINTING_3}
+            description="Broad Strokes and other initiatives bringing art to underserved communities."
+            link="#community"
+            index={2}
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AudiencePathways() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "start 0.5"],
+  });
+  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+  const pathways = [
+    {
+      label: "For Collectors",
+      description: "View available works, request pricing, and schedule private viewings.",
+      href: "#collect",
+    },
+    {
+      label: "For Exhibitors",
+      description: "Exhibition history, artist CV, and partnership inquiries.",
+      href: "#exhibit",
+    },
+    {
+      label: "Explore All Work",
+      description: "Browse the complete portfolio across all series and media.",
+      href: "#work",
+    },
+  ];
+
+  return (
+    <motion.section
+      ref={ref}
+      className="py-20 md:py-28"
+      style={{ opacity, backgroundColor: "var(--cream)" }}
+    >
+      <div className="max-w-[1200px] mx-auto px-6 md:px-10">
+        <FerruleLine className="mb-16" />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
+          {pathways.map((p, i) => (
+            <motion.a
+              key={p.label}
+              href={p.href}
+              className="group py-8 md:py-0 md:px-8 first:md:pl-0 last:md:pr-0"
+              style={{
+                borderBottom: i < 2 ? "1px solid rgba(184,184,184,0.3)" : "none",
+                borderRight: undefined,
+              }}
+              whileHover="hover"
+            >
+              <div
+                className="h-full"
+                style={{
+                  borderRight: i < 2 ? "1px solid rgba(184,184,184,0.2)" : "none",
+                  paddingRight: i < 2 ? "2rem" : "0",
+                }}
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <h3
+                    className="font-sans text-xs tracking-[0.25em] uppercase"
+                    style={{ fontWeight: 400, color: "#2A2A2A" }}
+                  >
+                    {p.label}
+                  </h3>
+                  <motion.svg
+                    width="20"
+                    height="8"
+                    viewBox="0 0 20 8"
+                    fill="none"
+                    variants={{ hover: { x: 4 } }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <path d="M0 4H18M18 4L14 0.5M18 4L14 7.5" stroke="#B8B8B8" strokeWidth="0.75" />
+                  </motion.svg>
+                </div>
+                <p
+                  className="font-sans text-sm leading-relaxed"
+                  style={{ fontWeight: 300, color: "#9A9590" }}
+                >
+                  {p.description}
+                </p>
+              </div>
+            </motion.a>
+          ))}
+        </div>
+      </div>
+    </motion.section>
+  );
+}
+
+function ArtistStatement() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "start 0.3"],
+  });
+  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const y = useTransform(scrollYProgress, [0, 1], [40, 0]);
+
+  return (
+    <motion.section
+      ref={ref}
+      id="about"
+      className="py-24 md:py-36"
+      style={{ backgroundColor: "var(--cream)" }}
+    >
+      <motion.div
+        className="max-w-[900px] mx-auto px-6 md:px-10 text-center"
+        style={{ opacity, y }}
+      >
+        <FerruleLineThin className="mb-16 max-w-[200px] mx-auto" />
+        <p
+          className="font-sans text-[10px] tracking-[0.3em] uppercase mb-8"
+          style={{ color: "#B8B8B8", fontWeight: 300 }}
+        >
+          About the Artist
+        </p>
+        <blockquote
+          className="font-serif text-2xl md:text-3xl lg:text-4xl italic leading-relaxed mb-10"
+          style={{ color: "#2A2A2A", fontWeight: 300 }}
+        >
+          "Through powerful imagery, colors and materials, my art highlights
+          what is happening in society. Each piece begins with glass — a
+          material that is both fragile and enduring — and builds through
+          layers of paint, gold leaf, and found objects."
+        </blockquote>
+        <p
+          className="font-sans text-sm tracking-[0.15em]"
+          style={{ color: "#9A9590", fontWeight: 300 }}
+        >
+          — José Awo, Atlanta
+        </p>
+        <FerruleLineThin className="mt-16 max-w-[200px] mx-auto" />
+      </motion.div>
+    </motion.section>
+  );
+}
+
+function Contact() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "start 0.4"],
+  });
+  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const y = useTransform(scrollYProgress, [0, 1], [40, 0]);
+
+  return (
+    <motion.section
+      ref={ref}
+      id="contact"
+      className="py-24 md:py-32"
+      style={{ backgroundColor: "var(--cream)" }}
+    >
+      <motion.div
+        className="max-w-[800px] mx-auto px-6 md:px-10"
+        style={{ opacity, y }}
+      >
+        <FerruleLine className="mb-16" />
+        <div className="text-center mb-12">
+          <p
+            className="font-sans text-[10px] tracking-[0.3em] uppercase mb-6"
+            style={{ color: "#B8B8B8", fontWeight: 300 }}
+          >
+            Get in Touch
+          </p>
+          <h2
+            className="font-serif text-3xl md:text-4xl italic mb-4"
+            style={{ fontWeight: 300, color: "#2A2A2A" }}
+          >
+            Let's connect
+          </h2>
+          <p
+            className="font-sans text-sm leading-relaxed"
+            style={{ fontWeight: 300, color: "#9A9590" }}
+          >
+            For inquiries about available works, commissions, exhibitions, or collaborations.
+          </p>
+        </div>
+
+        <form className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label
+                className="font-sans text-[10px] tracking-[0.2em] uppercase block mb-2"
+                style={{ color: "#9A9590", fontWeight: 300 }}
+              >
+                Name
+              </label>
+              <input
+                type="text"
+                className="w-full bg-transparent border-b py-3 font-sans text-sm focus:outline-none transition-colors"
+                style={{
+                  borderColor: "rgba(184,184,184,0.4)",
+                  color: "#2A2A2A",
+                  fontWeight: 300,
+                }}
+                onFocus={(e) => (e.target.style.borderColor = "#B8B8B8")}
+                onBlur={(e) => (e.target.style.borderColor = "rgba(184,184,184,0.4)")}
+              />
+            </div>
+            <div>
+              <label
+                className="font-sans text-[10px] tracking-[0.2em] uppercase block mb-2"
+                style={{ color: "#9A9590", fontWeight: 300 }}
+              >
+                Email
+              </label>
+              <input
+                type="email"
+                className="w-full bg-transparent border-b py-3 font-sans text-sm focus:outline-none transition-colors"
+                style={{
+                  borderColor: "rgba(184,184,184,0.4)",
+                  color: "#2A2A2A",
+                  fontWeight: 300,
+                }}
+                onFocus={(e) => (e.target.style.borderColor = "#B8B8B8")}
+                onBlur={(e) => (e.target.style.borderColor = "rgba(184,184,184,0.4)")}
+              />
+            </div>
+          </div>
+          <div>
+            <label
+              className="font-sans text-[10px] tracking-[0.2em] uppercase block mb-2"
+              style={{ color: "#9A9590", fontWeight: 300 }}
+            >
+              I'm interested in...
+            </label>
+            <div className="flex flex-wrap gap-3 mt-3">
+              {["Collecting", "Exhibiting", "Commissioning", "Collaborating", "Just Saying Hello"].map(
+                (opt) => (
+                  <button
+                    key={opt}
+                    type="button"
+                    className="font-sans text-xs tracking-[0.15em] uppercase px-4 py-2 border transition-all duration-300 hover:bg-[#2A2A2A] hover:text-[#FAF6F0] hover:border-[#2A2A2A]"
+                    style={{
+                      borderColor: "rgba(184,184,184,0.4)",
+                      color: "#4A4A4A",
+                      fontWeight: 300,
+                    }}
+                  >
+                    {opt}
+                  </button>
+                )
+              )}
+            </div>
+          </div>
+          <div>
+            <label
+              className="font-sans text-[10px] tracking-[0.2em] uppercase block mb-2"
+              style={{ color: "#9A9590", fontWeight: 300 }}
+            >
+              Message
+            </label>
+            <textarea
+              rows={4}
+              className="w-full bg-transparent border-b py-3 font-sans text-sm focus:outline-none transition-colors resize-none"
+              style={{
+                borderColor: "rgba(184,184,184,0.4)",
+                color: "#2A2A2A",
+                fontWeight: 300,
+              }}
+              onFocus={(e) => (e.target.style.borderColor = "#B8B8B8")}
+              onBlur={(e) => (e.target.style.borderColor = "rgba(184,184,184,0.4)")}
+            />
+          </div>
+          <div className="pt-4">
+            <motion.button
+              type="submit"
+              className="font-sans text-xs tracking-[0.25em] uppercase px-10 py-4 transition-all duration-300"
+              style={{
+                backgroundColor: "#2A2A2A",
+                color: "#FAF6F0",
+                fontWeight: 300,
+              }}
+              whileHover={{
+                backgroundColor: "#4A4A4A",
+                scale: 1.01,
+              }}
+              whileTap={{ scale: 0.99 }}
+            >
+              Send Message
+            </motion.button>
+          </div>
+        </form>
+      </motion.div>
+    </motion.section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="py-12" style={{ backgroundColor: "var(--cream)" }}>
+      <FerruleLineThin />
+      <div className="max-w-[1200px] mx-auto px-6 md:px-10 pt-10">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <p
+            className="font-sans text-xs tracking-[0.2em] uppercase"
+            style={{ color: "#9A9590", fontWeight: 200 }}
+          >
+            © 2024 José Awo. All rights reserved.
+          </p>
+          <div className="flex items-center gap-8">
+            {["Instagram", "Email"].map((item) => (
+              <motion.a
+                key={item}
+                href="#"
+                className="font-sans text-xs tracking-[0.15em] uppercase"
+                style={{ color: "#9A9590", fontWeight: 300 }}
+                whileHover={{ color: "#2A2A2A" }}
+                transition={{ duration: 0.3 }}
+              >
+                {item}
+              </motion.a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+export default function Home() {
+  return (
+    <div className="min-h-screen" style={{ backgroundColor: "var(--cream)" }}>
+      <Navigation />
+      <ParallaxHero />
+      <FeaturedWork />
+      <Categories />
+      <ArtistStatement />
+      <AudiencePathways />
+      <Contact />
+      <Footer />
     </div>
   );
 }
