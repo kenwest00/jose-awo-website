@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
-// CDN URLs
-const LAYER_BACK = "https://d2xsxph8kpxj0f.cloudfront.net/310419663032373885/PUxVj88aG3TdKTkiHjSYV6/glass-layer-back-6qyTZvvMcDcTCZQu42oDPc.png";
-const LAYER_MIDDLE = "https://d2xsxph8kpxj0f.cloudfront.net/310419663032373885/PUxVj88aG3TdKTkiHjSYV6/glass-layer-middle-gwXStoGDAgnv6rzi54kDvf.png";
-const LAYER_FRONT = "https://d2xsxph8kpxj0f.cloudfront.net/310419663032373885/PUxVj88aG3TdKTkiHjSYV6/glass-layer-front-eR2m3RT2yaoX8LYDtyuuzi.png";
+// CDN URLs — Real artwork layers from José's paintings
+const LAYER_BACK = "https://d2xsxph8kpxj0f.cloudfront.net/310419663032373885/PUxVj88aG3TdKTkiHjSYV6/layer-back-real_8302d065.jpg";
+const LAYER_MIDDLE = "https://d2xsxph8kpxj0f.cloudfront.net/310419663032373885/PUxVj88aG3TdKTkiHjSYV6/layer-middle-real_5f2bd18e.jpg";
+const LAYER_FRONT = "https://d2xsxph8kpxj0f.cloudfront.net/310419663032373885/PUxVj88aG3TdKTkiHjSYV6/layer-front-real_6192a9c1.jpg";
 const PAINTING_1 = "https://d2xsxph8kpxj0f.cloudfront.net/310419663032373885/PUxVj88aG3TdKTkiHjSYV6/jose_painting_da1d7704.jpg";
 const PAINTING_2 = "https://d2xsxph8kpxj0f.cloudfront.net/310419663032373885/PUxVj88aG3TdKTkiHjSYV6/jose_painting2_e413bad3.jpg";
 const PAINTING_3 = "https://d2xsxph8kpxj0f.cloudfront.net/310419663032373885/PUxVj88aG3TdKTkiHjSYV6/jose_painting3_956d00f2.jpg";
@@ -64,8 +64,9 @@ function Navigation() {
             className="font-sans text-sm md:text-base tracking-[0.35em] uppercase"
             style={{
               fontWeight: 200,
-              color: "#2A2A2A",
-              textShadow: scrolled ? "none" : "0 0 20px rgba(250,246,240,0.9)",
+              color: scrolled ? "#2A2A2A" : "#FAF6F0",
+              textShadow: scrolled ? "none" : "0 1px 6px rgba(0,0,0,0.5)",
+              transition: "color 0.5s, text-shadow 0.5s",
             }}
             whileHover={{ opacity: 0.6 }}
             transition={{ duration: 0.3 }}
@@ -78,7 +79,12 @@ function Navigation() {
                 key={item}
                 href={`#${item.toLowerCase()}`}
                 className="font-sans text-xs tracking-[0.25em] uppercase relative"
-                style={{ fontWeight: 300, color: "#4A4A4A", textShadow: scrolled ? "none" : "0 0 15px rgba(250,246,240,0.9)" }}
+                style={{
+                  fontWeight: 300,
+                  color: scrolled ? "#4A4A4A" : "rgba(250,246,240,0.85)",
+                  textShadow: scrolled ? "none" : "0 1px 4px rgba(0,0,0,0.4)",
+                  transition: "color 0.5s, text-shadow 0.5s",
+                }}
                 whileHover={{ color: "#2A2A2A" }}
                 transition={{ duration: 0.3 }}
               >
@@ -94,8 +100,8 @@ function Navigation() {
           </nav>
           {/* Mobile menu button */}
           <button className="md:hidden flex flex-col gap-1.5">
-            <span className="w-5 h-[1px] bg-[#2A2A2A]" />
-            <span className="w-5 h-[1px] bg-[#2A2A2A]" />
+            <span className="w-5 h-[1px] transition-colors duration-500" style={{ backgroundColor: scrolled ? "#2A2A2A" : "#FAF6F0" }} />
+            <span className="w-5 h-[1px] transition-colors duration-500" style={{ backgroundColor: scrolled ? "#2A2A2A" : "#FAF6F0" }} />
           </button>
         </div>
       </div>
@@ -106,125 +112,154 @@ function Navigation() {
 
 function ParallaxHero() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  // Smooth spring for scroll progress
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 80,
-    damping: 30,
-    restDelta: 0.001,
-  });
-
-  // Layer speeds: back = slow, middle = medium, front = fast
-  const backY = useTransform(smoothProgress, [0, 1], ["0%", "-15%"]);
-  const middleY = useTransform(smoothProgress, [0, 1], ["0%", "-40%"]);
-  const frontY = useTransform(smoothProgress, [0, 1], ["0%", "-70%"]);
-
-  // Opacity fade out as we scroll past
-  const heroOpacity = useTransform(smoothProgress, [0.7, 1], [1, 0]);
-
-  // Track current narrative phrase
+  const [scrollPct, setScrollPct] = useState(0);
   const [currentPhrase, setCurrentPhrase] = useState(0);
-  const [phraseOpacity, setPhraseOpacity] = useState(1);
+  const prevPhraseRef = useRef(0);
 
   useEffect(() => {
-    const unsubscribe = scrollYProgress.on("change", (v) => {
-      const idx = NARRATIVE_PHRASES.findIndex(
-        (p) => v >= p.start && v < p.end
-      );
-      if (idx !== -1 && idx !== currentPhrase) {
-        setPhraseOpacity(0);
-        setTimeout(() => {
-          setCurrentPhrase(idx);
-          setPhraseOpacity(1);
-        }, 300);
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => {
+          if (!containerRef.current) { ticking = false; return; }
+          const rect = containerRef.current.getBoundingClientRect();
+          const totalScroll = containerRef.current.offsetHeight - window.innerHeight;
+          const scrolled = -rect.top;
+          const pct = Math.max(0, Math.min(1, scrolled / totalScroll));
+          setScrollPct(pct);
+
+          // Determine narrative phrase
+          const idx = NARRATIVE_PHRASES.findIndex(p => pct >= p.start && pct < p.end);
+          if (idx !== -1 && idx !== prevPhraseRef.current) {
+            prevPhraseRef.current = idx;
+            setCurrentPhrase(idx);
+          }
+          ticking = false;
+        });
       }
-    });
-    return unsubscribe;
-  }, [scrollYProgress, currentPhrase]);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Direct CSS transform values — no spring, pure smooth
+  const backY = scrollPct * -10; // slow
+  const middleY = scrollPct * -30; // medium
+  const frontY = scrollPct * -55; // fast
+  const heroOpacity = scrollPct > 0.75 ? Math.max(0, 1 - (scrollPct - 0.75) / 0.25) : 1;
+  const scrollIndicatorOpacity = Math.max(0, 1 - scrollPct * 8);
 
   return (
     <div
       ref={containerRef}
       className="relative"
-      style={{ height: "300vh" }}
+      style={{ height: "280vh" }}
     >
       {/* Sticky viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        {/* Glass layers - full width, face-on */}
-        <motion.div
+        {/* Back layer — vibrant glass piece: reds, teals, golds */}
+        <div
           className="absolute inset-0 w-full h-full"
-          style={{ y: backY, opacity: heroOpacity }}
+          style={{
+            transform: `translate3d(0, ${backY}%, 0) scale(1.2)`,
+            willChange: "transform",
+            opacity: heroOpacity,
+          }}
         >
           <img
             src={LAYER_BACK}
             alt=""
             className="w-full h-full object-cover"
-            style={{ transform: "scale(1.3)", opacity: 0.7 }}
           />
-        </motion.div>
+        </div>
 
-        <motion.div
+        {/* Middle layer — dark nocturne: gold leaf, drips, beads */}
+        <div
           className="absolute inset-0 w-full h-full"
-          style={{ y: middleY, opacity: heroOpacity }}
+          style={{
+            transform: `translate3d(0, ${middleY}%, 0) scale(1.25)`,
+            willChange: "transform",
+            opacity: heroOpacity * 0.7,
+            mixBlendMode: "screen",
+          }}
         >
           <img
             src={LAYER_MIDDLE}
             alt=""
             className="w-full h-full object-cover"
-            style={{ transform: "scale(1.3)", opacity: 0.6, mixBlendMode: "multiply" }}
           />
-        </motion.div>
+        </div>
 
-        <motion.div
+        {/* Front layer — red portrait: crimson, splatters */}
+        <div
           className="absolute inset-0 w-full h-full"
-          style={{ y: frontY, opacity: heroOpacity }}
+          style={{
+            transform: `translate3d(0, ${frontY}%, 0) scale(1.3)`,
+            willChange: "transform",
+            opacity: heroOpacity * 0.55,
+            mixBlendMode: "multiply",
+          }}
         >
           <img
             src={LAYER_FRONT}
             alt=""
             className="w-full h-full object-cover"
-            style={{ transform: "scale(1.3)", opacity: 0.45, mixBlendMode: "multiply" }}
           />
-        </motion.div>
+        </div>
 
-        {/* Narrative text floating between layers */}
-        {/* Soft radial vignette to help text readability */}
+        {/* Subtle dark vignette at edges for depth */}
         <div
-          className="absolute inset-0 pointer-events-none z-[5]"
+          className="absolute inset-0 pointer-events-none z-[3]"
           style={{
-            background: "radial-gradient(ellipse 50% 40% at 50% 50%, rgba(250,246,240,0.55) 0%, transparent 100%)",
+            background: "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, rgba(0,0,0,0.25) 100%)",
           }}
         />
 
+        {/* Narrative text — floating between layers */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-          <motion.p
-            className="font-serif text-2xl md:text-4xl lg:text-5xl italic text-center px-8 max-w-3xl leading-relaxed"
+          <div
+            className="relative px-8 py-6"
             style={{
-              color: "#2A2A2A",
-              opacity: phraseOpacity,
-              textShadow: "0 0 30px rgba(250,246,240,1), 0 0 60px rgba(250,246,240,0.95), 0 0 100px rgba(250,246,240,0.8), 0 0 150px rgba(250,246,240,0.6)",
+              background: "radial-gradient(ellipse 100% 100% at 50% 50%, rgba(250,246,240,0.45) 0%, transparent 70%)",
             }}
-            key={currentPhrase}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: phraseOpacity, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            {NARRATIVE_PHRASES[currentPhrase]?.text}
-          </motion.p>
+            <p
+              className="font-serif text-2xl md:text-4xl lg:text-5xl italic text-center max-w-3xl leading-relaxed transition-opacity duration-700 ease-out"
+              style={{
+                color: "#FAF6F0",
+                textShadow: "0 2px 8px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3)",
+              }}
+              key={currentPhrase}
+            >
+              {NARRATIVE_PHRASES[currentPhrase]?.text}
+            </p>
+          </div>
+        </div>
+
+        {/* Artist name watermark */}
+        <div className="absolute top-24 left-6 md:left-10 z-10 pointer-events-none">
+          <p
+            className="font-sans text-[10px] md:text-xs tracking-[0.4em] uppercase"
+            style={{
+              color: "rgba(250,246,240,0.7)",
+              fontWeight: 200,
+              textShadow: "0 1px 4px rgba(0,0,0,0.4)",
+            }}
+          >
+            José Awo — Mixed Media on Glass
+          </p>
         </div>
 
         {/* Scroll indicator */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-10"
-          style={{ opacity: useTransform(smoothProgress, [0, 0.15], [1, 0]) }}
+        <div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-10 transition-opacity duration-300"
+          style={{ opacity: scrollIndicatorOpacity }}
         >
           <span
             className="font-sans text-[10px] tracking-[0.3em] uppercase"
-            style={{ color: "#9A9590", fontWeight: 300 }}
+            style={{ color: "rgba(250,246,240,0.7)", fontWeight: 300, textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}
           >
             Scroll to explore
           </span>
@@ -233,10 +268,10 @@ function ParallaxHero() {
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >
             <svg width="16" height="24" viewBox="0 0 16 24" fill="none">
-              <path d="M8 4V20M8 20L2 14M8 20L14 14" stroke="#B8B8B8" strokeWidth="1" />
+              <path d="M8 4V20M8 20L2 14M8 20L14 14" stroke="rgba(250,246,240,0.7)" strokeWidth="1" />
             </svg>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );
