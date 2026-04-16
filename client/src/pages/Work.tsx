@@ -90,6 +90,9 @@ export default function Work() {
               { id: "fractured-light", img: IMAGES.art1, title: "Fractured Light", year: "2023", span: "md:col-span-2 md:row-span-2" },
               { id: "urban-reflection", img: IMAGES.art2, title: "Urban Reflection", year: "2022", span: "" },
               { id: "glass-cathedral", img: IMAGES.art3, title: "Glass Cathedral", year: "2023", span: "" },
+              { id: "auburn-avenue", img: "/auburn_avenue.jpg", title: "Auburn Avenue", year: "2022", span: "md:col-span-2" },
+              { id: "southside-medical", img: "/southside_medical.jpg", title: "Southside Medical", year: "2015", span: "" },
+              { id: "broad-strokes", img: "/broad_strokes.jpg", title: "Broad Strokes on Broad Street", year: "2021", span: "md:col-span-2 md:row-span-2" },
               { id: "material-memory", img: IMAGES.art4, title: "Material Memory", year: "2021", span: "" },
               { id: "amber-prism", img: IMAGES.glassTexture, title: "Amber Prism", year: "2024", span: "md:col-span-2" },
             ].map((item, i) => (

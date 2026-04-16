@@ -64,7 +64,7 @@ export default function About() {
         <FadeIn>
           <div className="relative w-full h-[60vh] overflow-hidden mb-20 mt-10">
             <img
-              src={IMAGES.studioHero}
+              src="/crown_of_thorns.jpg"
               alt="Artist studio"
               className="w-full h-full object-cover"
             />
@@ -80,7 +80,7 @@ export default function About() {
           <div className="lg:col-span-3">
             <FadeIn>
               <p className="font-['Work_Sans'] text-[17px] leading-[1.65] text-[#1A1A1A] mb-6">
-                Atlanta-based conceptual artist José Awo draws inspiration from international travels to create sublime pieces that are "challenging and daring." Using repurposed materials such as industrial glass, he has refined his own visual and conceptual vocabulary to create the dramatic.
+                Jose Awo is an Atlanta-based artist known for a dynamic, versatile body of work that includes abstract expressionism, bold illustration, and stylized photographic alteration. His art powerfully conveys intense inner emotion and delves into urban and historical narratives.
               </p>
             </FadeIn>
 
@@ -97,8 +97,15 @@ export default function About() {
             </FadeIn>
 
             <FadeIn delay={0.2}>
+              <h4 className="font-['Roboto_Mono'] text-[14px] tracking-[1.5px] uppercase text-[#1A1A1A] mb-3 mt-6">Key Artistic Themes and Styles:</h4>
+              <ul className="list-disc pl-5 font-['Work_Sans'] text-[16px] leading-[1.65] text-[#1A1A1A] mb-6 space-y-2">
+                <li><strong className="font-semibold">Abstract Expressionism:</strong> Characterized by energetic, free-form paintings, often utilizing an earthy palette and featuring fragmented human forms.</li>
+                <li><strong className="font-semibold">Urban & Historical Narrative:</strong> Impressionistic works that focus on African-American history and the Civil Rights Movement.</li>
+                <li><strong className="font-semibold">Mixed Media:</strong> Layers of multi media artifacts and color applied over underlying figurative imagery.</li>
+                <li><strong className="font-semibold">Public Art:</strong> Large-scale, layered abstract works and murals, distinguished by bold lines and vivid colors (e.g., the notable "Broad Strokes on Broad Street").</li>
+              </ul>
               <p className="font-['Work_Sans'] text-[17px] leading-[1.65] text-[#1A1A1A] mb-6">
-                Awo's pieces are deconstructed and pure, with a studied appreciation of life's overlooked treasures. His artwork is designed to draw viewers into a reflective state of self-examination. Through the use of powerful imagery, colors and materials, his art highlights what's happening in society.
+                Awo's portfolio is defined by its energetic compositions, bold color, and a consistent focus on the human figure, the urban environment, and historical context, all rendered through a contemporary, expressionistic lens.
               </p>
             </FadeIn>
           </div>
@@ -108,7 +115,7 @@ export default function About() {
             <FadeIn delay={0.1}>
               <div className="group overflow-hidden cursor-pointer">
                 <img
-                  src={IMAGES.artist}
+                  src="/jose_working.jpg"
                   alt="José Awo"
                   className="w-full object-cover aspect-[3/4] transition-transform duration-300 group-hover:scale-[1.03]"
                 />
@@ -133,7 +140,9 @@ export default function About() {
               Artist Statement
             </h3>
             <p className="font-['Work_Sans'] text-[19px] leading-[1.8] text-[#1A1A1A]">
-              Through the use of powerful imagery, colors and materials, my art highlights what's happening in society causing the viewer to ponder several societal issues — such as the plight of the unhoused — in perhaps a new and different light. My work is a bridge between the overlooked and the seen, the discarded and the treasured.
+              My work as a conceptual artist is a reflection on the dramatic, sublime, and often challenging nature of human experience, deeply rooted in my culture, environment, and commitment to youth. I aim to create a challenging and daring body of work with a unique visual and conceptual style. 
+              <br /><br />
+              A defining characteristic of my practice is the integration of rediscovered and repurposed materials which transform the overlooked into the profound and give new life to forgotten narratives.
             </p>
           </div>
         </FadeIn>
