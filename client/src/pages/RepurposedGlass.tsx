@@ -1,3 +1,5 @@
+import { Link } from "wouter";
+import { Plus } from "lucide-react";
 import { FadeIn } from "@/components/FadeIn";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
@@ -7,26 +9,23 @@ const WORKS = [
   {
     id: "fractured-light",
     title: "Fractured Light",
-    date: "2023",
-    dimensions: "48 × 36 inches",
-    description: "This piece explores the tension between fragility and strength — industrial glass, once discarded, is given new purpose through layers of acrylic and light.",
-    image: IMAGES.art1
+    year: "2023",
+    img: IMAGES.art1,
+    span: "md:col-span-2 md:row-span-2"
   },
   {
     id: "amber-prism",
     title: "Amber Prism",
-    date: "2024",
-    dimensions: "40 × 40 inches",
-    description: "Trapping light in amber. A study of texture and translucency using reclaimed industrial glass and custom resin casting.",
-    image: IMAGES.glassTexture
+    year: "2024",
+    img: IMAGES.glassTexture,
+    span: ""
   },
   {
     id: "glass-cathedral",
     title: "Glass Cathedral",
-    date: "2023",
-    dimensions: "60 × 48 inches",
-    description: "A towering monolithic presence shaped by light. Shattered glass integrated onto canvas creates a highly textural, structural composition.",
-    image: IMAGES.art3
+    year: "2023",
+    img: IMAGES.art3,
+    span: ""
   }
 ];
 
@@ -37,7 +36,12 @@ export default function RepurposedGlass() {
 
       <section className="py-32 px-8 flex-grow">
         <FadeIn>
-          <div className="max-w-6xl mx-auto mb-20 pt-10">
+          <div className="max-w-6xl mx-auto mb-16 pt-10">
+            <Link href="/work">
+              <span className="inline-flex items-center gap-2 font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] hover:text-[#B7410E] transition-colors cursor-pointer mb-8">
+                ← Back to Work
+              </span>
+            </Link>
             <h2 className="font-['Roboto_Mono'] text-[36px] font-medium tracking-[1.5px] uppercase mb-4">
               Repurposed Glass
             </h2>
@@ -47,37 +51,38 @@ export default function RepurposedGlass() {
           </div>
         </FadeIn>
 
-        <div className="max-w-6xl mx-auto space-y-24">
-          {WORKS.map((work, index) => (
-            <FadeIn key={work.id} delay={0.1}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div className={`bg-[#E8E4DF] p-6 ${index % 2 !== 0 ? 'md:order-2' : ''}`}>
-                  <img 
-                    src={work.image} 
-                    alt={work.title}
-                    className="w-full h-auto object-cover shadow-lg"
-                  />
-                </div>
-                <div className={`flex flex-col justify-center ${index % 2 !== 0 ? 'md:order-1' : ''}`}>
-                  <div className="flex items-center gap-4 mb-4">
-                    <span className="font-['Roboto_Mono'] text-[13px] tracking-[1px] text-[#B7410E] uppercase">
-                      {work.date}
-                    </span>
-                    <span className="w-6 h-[1px] bg-[#D4D0CB]"></span>
-                    <span className="font-['Work_Sans'] text-[13px] text-[#A0A0A0] uppercase tracking-[1px]">
-                      {work.dimensions}
-                    </span>
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {WORKS.map((item, i) => (
+              <FadeIn key={item.id} delay={i * 0.08} className={item.span}>
+                <Link href={`/work/${item.id}`}>
+                  <div className="group relative overflow-hidden cursor-pointer bg-[#F5F0EB] p-3 block h-full">
+                    <div className="relative overflow-hidden h-full">
+                      <img
+                        src={item.img}
+                        alt={item.title}
+                        className="w-full h-full object-cover aspect-[4/3] transition-all duration-300 group-hover:brightness-[0.85]"
+                      />
+                      <div className="absolute inset-0 border border-[#B7410E] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="w-10 h-10 rounded-full border-2 border-[#B7410E] flex items-center justify-center">
+                          <Plus size={16} className="text-[#B7410E]" />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-3">
+                      <span className="block font-['Work_Sans'] text-[14px] text-[#1A1A1A] group-hover:text-[#B7410E] transition-colors duration-300">
+                        {item.title}
+                      </span>
+                      <span className="block font-['Roboto_Mono'] text-[11px] text-[#A0A0A0] uppercase tracking-[1px] mt-1">
+                        {item.year}
+                      </span>
+                    </div>
                   </div>
-                  <h3 className="font-['Roboto_Mono'] text-[28px] font-medium tracking-[1px] uppercase mb-6">
-                    {work.title}
-                  </h3>
-                  <p className="font-['Work_Sans'] text-[16px] leading-[1.8] text-[#1A1A1A]">
-                    {work.description}
-                  </p>
-                </div>
-              </div>
-            </FadeIn>
-          ))}
+                </Link>
+              </FadeIn>
+            ))}
+          </div>
         </div>
       </section>
 

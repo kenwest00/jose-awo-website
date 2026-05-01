@@ -1,3 +1,5 @@
+import { Link } from "wouter";
+import { Plus } from "lucide-react";
 import { FadeIn } from "@/components/FadeIn";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
@@ -8,17 +10,25 @@ const WORKS = [
     id: "broad-strokes",
     title: "Broad Strokes on Broad Street",
     location: "Atlanta, GA",
-    date: "2021",
-    description: "A layered abstract exploration of urban space, using bold lines and vivid colors to transform the streetscape and engage the local community in a dialogue about public space.",
-    image: IMAGES.broadStrokes
+    year: "2021",
+    img: IMAGES.broadStrokes,
+    span: "md:col-span-2 md:row-span-2"
   },
   {
     id: "southside-medical",
     title: "Hope Rises Like a Phoenix",
-    location: "Southside Medical Center, Atlanta, GA",
-    date: "2015",
-    description: "A large-scale public mural celebrating resilience and community healing, blending historical narrative with contemporary expressionism.",
-    image: IMAGES.southsideMedical
+    location: "Southside Medical Center",
+    year: "2015",
+    img: IMAGES.southsideMedical,
+    span: ""
+  },
+  {
+    id: "urban-reflection",
+    title: "Urban Reflection",
+    location: "Downtown Plaza",
+    year: "2022",
+    img: IMAGES.art2,
+    span: ""
   }
 ];
 
@@ -29,7 +39,12 @@ export default function PublicArt() {
 
       <section className="py-32 px-8 flex-grow">
         <FadeIn>
-          <div className="max-w-6xl mx-auto mb-20 pt-10">
+          <div className="max-w-6xl mx-auto mb-16 pt-10">
+            <Link href="/work">
+              <span className="inline-flex items-center gap-2 font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] hover:text-[#B7410E] transition-colors cursor-pointer mb-8">
+                ← Back to Work
+              </span>
+            </Link>
             <h2 className="font-['Roboto_Mono'] text-[36px] font-medium tracking-[1.5px] uppercase mb-4">
               Public Art
             </h2>
@@ -39,35 +54,38 @@ export default function PublicArt() {
           </div>
         </FadeIn>
 
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16">
-          {WORKS.map((work, index) => (
-            <FadeIn key={work.id} delay={index * 0.1}>
-              <div className="group">
-                <div className="aspect-[4/3] overflow-hidden bg-[#E8E4DF] mb-6">
-                  <img 
-                    src={work.image} 
-                    alt={work.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                  />
-                </div>
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="font-['Roboto_Mono'] text-[12px] tracking-[1px] text-[#B7410E] uppercase">
-                    {work.date}
-                  </span>
-                  <span className="w-4 h-[1px] bg-[#D4D0CB]"></span>
-                  <span className="font-['Work_Sans'] text-[12px] text-[#A0A0A0] uppercase tracking-[1px]">
-                    {work.location}
-                  </span>
-                </div>
-                <h3 className="font-['Roboto_Mono'] text-[24px] font-medium tracking-[1px] uppercase mb-4">
-                  {work.title}
-                </h3>
-                <p className="font-['Work_Sans'] text-[15px] leading-[1.8] text-[#666]">
-                  {work.description}
-                </p>
-              </div>
-            </FadeIn>
-          ))}
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {WORKS.map((item, i) => (
+              <FadeIn key={item.id} delay={i * 0.08} className={item.span}>
+                <Link href={`/work/${item.id}`}>
+                  <div className="group relative overflow-hidden cursor-pointer bg-[#F5F0EB] p-3 block h-full">
+                    <div className="relative overflow-hidden h-full">
+                      <img
+                        src={item.img}
+                        alt={item.title}
+                        className="w-full h-full object-cover aspect-[4/3] transition-all duration-300 group-hover:brightness-[0.85]"
+                      />
+                      <div className="absolute inset-0 border border-[#B7410E] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="w-10 h-10 rounded-full border-2 border-[#B7410E] flex items-center justify-center">
+                          <Plus size={16} className="text-[#B7410E]" />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-3">
+                      <span className="block font-['Work_Sans'] text-[14px] text-[#1A1A1A] group-hover:text-[#B7410E] transition-colors duration-300">
+                        {item.title}
+                      </span>
+                      <span className="block font-['Roboto_Mono'] text-[11px] text-[#A0A0A0] uppercase tracking-[1px] mt-1">
+                        {item.location}, {item.year}
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              </FadeIn>
+            ))}
+          </div>
         </div>
       </section>
 
