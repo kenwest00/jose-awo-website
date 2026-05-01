@@ -12,4 +12,10 @@ export const IMAGES = {
   jose3: `${CDN}/jose3_84cfa33a.jpg`,
   joseFamily: `${CDN}/jose_family_e6374163.jpg`,
   glassTexture: `${CDN}/glass-texture-G7LKw9JUdEBYFVE6T7fzLT.webp`,
+  // Local additions
+  auburnAvenue: "/auburn_avenue.jpg",
+  southsideMedical: "/southside_medical.jpg",
+  broadStrokes: "/broad_strokes.jpg",
+  crownOfThorns: "/crown_of_thorns.jpg",
+  joseWorking: "/jose_working.jpg",
 };

@@ -1,8 +1,10 @@
 import { FadeIn } from "@/components/FadeIn";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { useState } from "react";
 
 export default function Contact() {
+  const [inquiryType, setInquiryType] = useState("Art Collector");
   return (
     <div className="concept-1 bg-[#F5F0EB] text-[#1A1A1A] min-h-screen flex flex-col justify-between">
       <Navigation />
@@ -37,7 +39,11 @@ export default function Contact() {
                 <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#1A1A1A] transition-colors duration-200 block mb-2">
                   I am a...
                 </label>
-                <select className="w-full bg-transparent border-b-2 border-[#D4D0CB] focus:border-[#B7410E] py-3 font-['Work_Sans'] text-[17px] text-[#1A1A1A] outline-none transition-colors duration-200 appearance-none">
+                <select 
+                  value={inquiryType}
+                  onChange={(e) => setInquiryType(e.target.value)}
+                  className="w-full bg-transparent border-b-2 border-[#D4D0CB] focus:border-[#B7410E] py-3 font-['Work_Sans'] text-[17px] text-[#1A1A1A] outline-none transition-colors duration-200 appearance-none"
+                >
                   <option>Art Collector</option>
                   <option>Curator / Gallery</option>
                   <option>Press / Media</option>
@@ -45,6 +51,21 @@ export default function Contact() {
                   <option>Other</option>
                 </select>
               </div>
+
+              {/* Conditional Institution Field */}
+              {inquiryType === "Curator / Gallery" && (
+                <FadeIn>
+                  <div className="group">
+                    <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#1A1A1A] transition-colors duration-200 block mb-2">
+                      Institution Name
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full bg-transparent border-b-2 border-[#D4D0CB] focus:border-[#B7410E] py-3 font-['Work_Sans'] text-[17px] text-[#1A1A1A] outline-none transition-colors duration-200"
+                    />
+                  </div>
+                </FadeIn>
+              )}
 
               {/* Subject */}
               <div className="group">
@@ -68,6 +89,18 @@ export default function Contact() {
                 />
               </div>
 
+              {/* Newsletter */}
+              <div className="flex items-center gap-3 pt-2">
+                <input 
+                  type="checkbox" 
+                  id="newsletter"
+                  className="w-4 h-4 accent-[#B7410E]"
+                />
+                <label htmlFor="newsletter" className="font-['Work_Sans'] text-[14px] text-[#666] cursor-pointer select-none">
+                  Subscribe to studio newsletter for exhibition updates
+                </label>
+              </div>
+
               {/* Submit */}
               <button 
                 type="button"
@@ -80,14 +113,33 @@ export default function Contact() {
               </button>
             </form>
 
-            {/* Social links */}
-            <div className="mt-12 space-y-2">
-              <p className="font-['Work_Sans'] text-[15px] text-[#A0A0A0]">
-                info@joseawoart.com
-              </p>
-              <p className="font-['Work_Sans'] text-[15px] text-[#A0A0A0]">
-                Instagram · LinkedIn
-              </p>
+            {/* Social links & Physical Grounding */}
+            <div className="mt-16 space-y-8">
+              <div>
+                <h4 className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] mb-2">Inquiries</h4>
+                <a href="mailto:info@joseawoart.com" className="font-['Work_Sans'] text-[16px] text-[#1A1A1A] hover:text-[#B7410E] transition-colors">
+                  info@joseawoart.com
+                </a>
+              </div>
+              
+              <div>
+                <h4 className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] mb-2">Studio</h4>
+                <p className="font-['Work_Sans'] text-[16px] text-[#1A1A1A]">
+                  Atlanta, GA
+                </p>
+              </div>
+
+              <div>
+                <h4 className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] mb-2">Social</h4>
+                <div className="flex gap-6">
+                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="font-['Work_Sans'] text-[16px] text-[#1A1A1A] hover:text-[#B7410E] transition-colors">
+                    Instagram
+                  </a>
+                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="font-['Work_Sans'] text-[16px] text-[#1A1A1A] hover:text-[#B7410E] transition-colors">
+                    LinkedIn
+                  </a>
+                </div>
+              </div>
             </div>
           </FadeIn>
 

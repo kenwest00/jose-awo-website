@@ -24,34 +24,37 @@ export default function Work() {
         <div className="overflow-x-auto pb-8 -mx-8 px-8 scrollbar-hide">
           <div className="flex gap-6 w-max">
             {[
-              { title: "EXHIBITIONS", desc: "Gallery shows and institutional presentations", img: IMAGES.art1 },
-              { title: "COMMISSIONS", desc: "Bespoke works for collectors and institutions", img: IMAGES.art4 },
-              { title: "PUBLIC ART", desc: "Community-engaged installations and murals", img: IMAGES.group1 },
-              { title: "REPURPOSED GLASS", desc: "Industrial glass transformed into fine art", img: IMAGES.glassTexture },
+              { title: "EXHIBITIONS", desc: "Gallery shows and institutional presentations", img: IMAGES.broadStrokes, slug: "exhibitions" },
+              { title: "COMMISSIONS", desc: "Bespoke works for collectors and institutions", img: IMAGES.southsideMedical, slug: "commissions" },
+              { title: "PUBLIC ART", desc: "Community-engaged installations and murals", img: IMAGES.art4, slug: "public-art" },
+              { title: "REPURPOSED GLASS", desc: "Industrial glass transformed into fine art", img: IMAGES.glassTexture, slug: "repurposed-glass" },
             ].map((series, i) => (
               <FadeIn key={series.title} delay={i * 0.15}>
-                <div className="group relative w-[70vw] md:w-[45vw] lg:w-[35vw] aspect-[4/3] overflow-hidden cursor-pointer">
-                  <img
-                    src={series.img}
-                    alt={series.title}
-                    className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:brightness-90"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="font-['Roboto_Mono'] text-[24px] font-medium tracking-[1px] uppercase text-white mb-1">
-                      {series.title}
-                    </h3>
-                    <p className="font-['Work_Sans'] text-[13px] text-white/70">
-                      {series.desc}
-                    </p>
+                <Link href={`/work/${series.slug}`}>
+                  <div className="group relative w-[70vw] md:w-[45vw] lg:w-[35vw] cursor-pointer">
+                    <div className="relative aspect-[4/3] overflow-hidden mb-4 bg-[#E8E4DF]">
+                      <img
+                        src={series.img}
+                        alt={series.title}
+                        className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+                      />
+                      {/* Hover prompt */}
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-[#1A1A1A]/20 transition-all duration-300">
+                        <span className="font-['Roboto_Mono'] text-[12px] tracking-[2px] uppercase text-[#1A1A1A] bg-[#F5F0EB] px-4 py-2">
+                          Click to Explore
+                        </span>
+                      </div>
+                    </div>
+                    <div>
+                      <h3 className="font-['Roboto_Mono'] text-[18px] font-medium tracking-[1px] uppercase text-[#1A1A1A] mb-1">
+                        {series.title}
+                      </h3>
+                      <p className="font-['Work_Sans'] text-[13px] text-[#A0A0A0]">
+                        {series.desc}
+                      </p>
+                    </div>
                   </div>
-                  {/* Hover prompt */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="font-['Roboto_Mono'] text-[12px] tracking-[2px] uppercase text-[#B7410E] bg-white/90 px-4 py-2">
-                      Click to Explore →
-                    </span>
-                  </div>
-                </div>
+                </Link>
               </FadeIn>
             ))}
           </div>
@@ -90,9 +93,9 @@ export default function Work() {
               { id: "fractured-light", img: IMAGES.art1, title: "Fractured Light", year: "2023", span: "md:col-span-2 md:row-span-2" },
               { id: "urban-reflection", img: IMAGES.art2, title: "Urban Reflection", year: "2022", span: "" },
               { id: "glass-cathedral", img: IMAGES.art3, title: "Glass Cathedral", year: "2023", span: "" },
-              { id: "auburn-avenue", img: "/auburn_avenue.jpg", title: "Auburn Avenue", year: "2022", span: "md:col-span-2" },
-              { id: "southside-medical", img: "/southside_medical.jpg", title: "Southside Medical", year: "2015", span: "" },
-              { id: "broad-strokes", img: "/broad_strokes.jpg", title: "Broad Strokes on Broad Street", year: "2021", span: "md:col-span-2 md:row-span-2" },
+              { id: "auburn-avenue", img: IMAGES.auburnAvenue, title: "Auburn Avenue", year: "2022", span: "md:col-span-2" },
+              { id: "southside-medical", img: IMAGES.southsideMedical, title: "Southside Medical", year: "2015", span: "" },
+              { id: "broad-strokes", img: IMAGES.broadStrokes, title: "Broad Strokes on Broad Street", year: "2021", span: "md:col-span-2 md:row-span-2" },
               { id: "material-memory", img: IMAGES.art4, title: "Material Memory", year: "2021", span: "" },
               { id: "amber-prism", img: IMAGES.glassTexture, title: "Amber Prism", year: "2024", span: "md:col-span-2" },
             ].map((item, i) => (

@@ -1,5 +1,6 @@
 import { useParams } from "wouter";
-import { Search, ChevronLeft, ChevronRight } from "lucide-react";
+import { Search, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { useState } from "react";
 import { IMAGES } from "@/lib/constants";
 import { FadeIn } from "@/components/FadeIn";
 import { Navigation } from "@/components/Navigation";
@@ -56,12 +57,43 @@ const ARTWORKS: Record<string, any> = {
     series: "Prisms",
     status: "AVAILABLE",
     note: '"Trapping light in amber."'
+  },
+  "auburn-avenue": {
+    title: "Auburn Avenue",
+    img: IMAGES.auburnAvenue,
+    year: "2022",
+    medium: "Mixed media on canvas",
+    dimensions: "48 × 60 inches",
+    series: "Commissions",
+    status: "COMMISSIONED",
+    note: '"A tribute to the historical heartbeat of Atlanta, blending architectural structure with vibrant communal energy."'
+  },
+  "southside-medical": {
+    title: "Southside Medical",
+    img: IMAGES.southsideMedical,
+    year: "2015",
+    medium: "Mural / Mixed Media",
+    dimensions: "Large Scale",
+    series: "Commissions",
+    status: "COMMISSIONED",
+    note: '"Hope Rises Like a Phoenix — a piece celebrating resilience and community healing at the South Side Medical Center."'
+  },
+  "broad-strokes": {
+    title: "Broad Strokes on Broad Street",
+    img: IMAGES.broadStrokes,
+    year: "2021",
+    medium: "Mural / Public Art",
+    dimensions: "Public Installation",
+    series: "Public Art",
+    status: "PUBLIC",
+    note: '"A layered abstract exploration of urban space, using bold lines and vivid colors to transform the streetscape."'
   }
 };
 
 export default function ArtworkDetail() {
   const { id } = useParams();
   const artwork = id && ARTWORKS[id] ? ARTWORKS[id] : ARTWORKS["fractured-light"];
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className="concept-1 bg-[#F5F0EB] text-[#1A1A1A] min-h-screen flex flex-col justify-between">
@@ -96,6 +128,8 @@ export default function ArtworkDetail() {
                 { label: "Dimensions", value: artwork.dimensions, color: "text-[#1A1A1A]" },
                 { label: "Series", value: artwork.series, color: "text-[#B7410E]", link: true },
                 { label: "Status", value: artwork.status, color: "text-[#1A1A1A]", mono: true },
+                ...(artwork.provenance ? [{ label: "Provenance", value: artwork.provenance, color: "text-[#1A1A1A]" }] : []),
+                ...(artwork.exhibitionHistory ? [{ label: "Exhibitions", value: artwork.exhibitionHistory, color: "text-[#1A1A1A]" }] : []),
               ].map((field) => (
                 <div key={field.label} className="flex justify-between items-baseline border-b border-[#E8E4DF] pb-3">
                   <span className="font-['Work_Sans'] text-[13px] text-[#A0A0A0] tracking-[0.5px]">
@@ -114,7 +148,10 @@ export default function ArtworkDetail() {
             </p>
 
             {/* Inquiry button */}
-            <button className="relative group w-full border-2 border-[#B7410E] py-4 overflow-hidden transition-colors duration-300">
+            <button 
+              onClick={() => setIsModalOpen(true)}
+              className="relative group w-full border-2 border-[#B7410E] py-4 overflow-hidden transition-colors duration-300"
+            >
               <span className="absolute inset-0 bg-[#B7410E] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
               <span className="relative font-['Roboto_Mono'] text-[14px] tracking-[1.5px] uppercase text-[#B7410E] group-hover:text-[#F5F0EB] transition-colors duration-300">
                 Inquire About This Piece
@@ -135,6 +172,82 @@ export default function ArtworkDetail() {
       </section>
 
       <Footer />
+
+      {/* Inquiry Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="bg-[#F5F0EB] w-full max-w-lg relative p-8 shadow-2xl border border-[#D4D0CB]">
+            <button 
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-6 right-6 text-[#A0A0A0] hover:text-[#1A1A1A] transition-colors"
+            >
+              <X size={24} />
+            </button>
+            
+            <h3 className="font-['Roboto_Mono'] text-[24px] font-medium tracking-[1px] uppercase text-[#1A1A1A] mb-8">
+              Inquire
+            </h3>
+            
+            <form className="space-y-6">
+              <div className="group">
+                <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] block mb-2">
+                  Subject
+                </label>
+                <input
+                  type="text"
+                  readOnly
+                  value={`Inquiry regarding: ${artwork.title}`}
+                  className="w-full bg-transparent border-b-2 border-[#D4D0CB] py-3 font-['Work_Sans'] text-[15px] text-[#1A1A1A] outline-none opacity-70 cursor-not-allowed"
+                />
+              </div>
+              
+              <div className="group">
+                <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#1A1A1A] transition-colors duration-200 block mb-2">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  required
+                  className="w-full bg-transparent border-b-2 border-[#D4D0CB] focus:border-[#B7410E] py-3 font-['Work_Sans'] text-[15px] text-[#1A1A1A] outline-none transition-colors duration-200"
+                />
+              </div>
+
+              <div className="group">
+                <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#1A1A1A] transition-colors duration-200 block mb-2">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  required
+                  className="w-full bg-transparent border-b-2 border-[#D4D0CB] focus:border-[#B7410E] py-3 font-['Work_Sans'] text-[15px] text-[#1A1A1A] outline-none transition-colors duration-200"
+                />
+              </div>
+
+              <div className="group">
+                <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#1A1A1A] transition-colors duration-200 block mb-2">
+                  Message
+                </label>
+                <textarea
+                  rows={4}
+                  required
+                  className="w-full bg-transparent border-b-2 border-[#D4D0CB] focus:border-[#B7410E] py-3 font-['Work_Sans'] text-[15px] text-[#1A1A1A] outline-none transition-colors duration-200 resize-none"
+                />
+              </div>
+              
+              <button 
+                type="button"
+                onClick={() => setIsModalOpen(false)}
+                className="relative group w-full border-2 border-[#B7410E] py-4 overflow-hidden transition-colors duration-300 mt-4 cursor-pointer"
+              >
+                <span className="absolute inset-0 bg-[#B7410E] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                <span className="relative font-['Roboto_Mono'] text-[14px] tracking-[1.5px] uppercase text-[#B7410E] group-hover:text-[#F5F0EB] transition-colors duration-300">
+                  Send Inquiry
+                </span>
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

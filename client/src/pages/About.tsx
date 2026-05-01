@@ -64,8 +64,8 @@ export default function About() {
         <FadeIn>
           <div className="relative w-full h-[60vh] overflow-hidden mb-20 mt-10">
             <img
-              src="/crown_of_thorns.jpg"
-              alt="Artist studio"
+              src="/about_banner.png"
+              alt="Vibrant abstract painting by Jose Awo"
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#F5F0EB] via-transparent to-transparent" />
@@ -84,17 +84,7 @@ export default function About() {
               </p>
             </FadeIn>
 
-            {/* Pull quote */}
-            <FadeIn delay={0.1}>
-              <blockquote className="border-l-[3px] border-[#B7410E] pl-6 my-8">
-                <p className="font-['Roboto_Mono'] text-[20px] italic text-[#B7410E] leading-relaxed">
-                  "...challenging & daring — you won't see anything like them anywhere else."
-                </p>
-                <cite className="font-['Work_Sans'] text-[13px] text-[#A0A0A0] mt-2 block not-italic">
-                  — Ron Adams, Legendary Santa Fe Lithographer
-                </cite>
-              </blockquote>
-            </FadeIn>
+
 
             <FadeIn delay={0.2}>
               <h4 className="font-['Roboto_Mono'] text-[14px] tracking-[1.5px] uppercase text-[#1A1A1A] mb-3 mt-6">Key Artistic Themes and Styles:</h4>
@@ -115,8 +105,8 @@ export default function About() {
             <FadeIn delay={0.1}>
               <div className="group overflow-hidden cursor-pointer">
                 <img
-                  src="/jose_working.jpg"
-                  alt="José Awo"
+                  src="/broad_strokes.jpg"
+                  alt="José Awo in his studio"
                   className="w-full object-cover aspect-[3/4] transition-transform duration-300 group-hover:scale-[1.03]"
                 />
               </div>
@@ -124,8 +114,8 @@ export default function About() {
             <FadeIn delay={0.2}>
               <div className="group overflow-hidden cursor-pointer">
                 <img
-                  src={IMAGES.jose2}
-                  alt="José Awo at work"
+                  src={IMAGES.joseWorking}
+                  alt="José Awo working on glass"
                   className="w-full object-cover aspect-[4/3] transition-transform duration-300 group-hover:scale-[1.03]"
                 />
               </div>
@@ -187,6 +177,46 @@ export default function About() {
                     <Download size={14} /> {label}
                   </span>
                 </button>
+              ))}
+            </div>
+          </FadeIn>
+        </div>
+
+        {/* Press & Bibliography */}
+        <div className="max-w-4xl mx-auto mt-32">
+          <FadeIn>
+            <h3 className="font-['Roboto_Mono'] text-[24px] font-medium tracking-[1px] uppercase mb-12">
+              Press & Bibliography
+            </h3>
+            
+            <blockquote className="border-l-[3px] border-[#B7410E] pl-6 mb-12">
+              <p className="font-['Roboto_Mono'] text-[20px] italic text-[#B7410E] leading-relaxed">
+                "...challenging & daring — you won't see anything like them anywhere else."
+              </p>
+              <cite className="font-['Work_Sans'] text-[13px] text-[#A0A0A0] mt-2 block not-italic">
+                — Ron Adams, Legendary Santa Fe Lithographer
+              </cite>
+            </blockquote>
+
+            <div className="space-y-6">
+              {[
+                { title: "Review: The Raw Edge of Contemporary Atlanta Art", publication: "Burnaway", year: "2023" },
+                { title: "José Awo: Reframing the Medium", publication: "Art Papers", year: "2021" },
+                { title: "Catalog Essay: Fragments and the Whole", publication: "Gallery 297 Press", year: "2019" }
+              ].map((item, index) => (
+                <div key={index} className="group border-b border-[#E8E4DF] pb-4 flex justify-between items-baseline">
+                  <div>
+                    <a href="#" className="font-['Work_Sans'] text-[16px] text-[#1A1A1A] hover:text-[#B7410E] transition-colors block mb-1">
+                      {item.title}
+                    </a>
+                    <span className="font-['Roboto_Mono'] text-[12px] uppercase tracking-[1px] text-[#A0A0A0]">
+                      {item.publication}
+                    </span>
+                  </div>
+                  <span className="font-['Roboto_Mono'] text-[12px] text-[#A0A0A0]">
+                    {item.year}
+                  </span>
+                </div>
               ))}
             </div>
           </FadeIn>
