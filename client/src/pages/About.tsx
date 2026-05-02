@@ -1,4 +1,5 @@
-import { Download } from "lucide-react";
+import { useState } from "react";
+import { Download, ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
 import { IMAGES } from "@/lib/constants";
 import { FadeIn } from "@/components/FadeIn";
@@ -54,6 +55,16 @@ export default function About() {
       ]
     }
   ];
+
+  const [openSections, setOpenSections] = useState<string[]>([]);
+
+  const toggleSection = (category: string) => {
+    setOpenSections(prev => 
+      prev.includes(category) 
+        ? prev.filter(c => c !== category)
+        : [...prev, category]
+    );
+  };
 
   return (
     <div className="concept-1 bg-[#F5F0EB] text-[#1A1A1A] min-h-screen flex flex-col justify-between">
@@ -145,27 +156,42 @@ export default function About() {
             </h3>
           </FadeIn>
 
-          {customCV.map((section, si) => (
-            <FadeIn key={section.category} delay={si * 0.1}>
-              <div className="mb-8">
-                <h4 className="font-['Roboto_Mono'] text-[14px] tracking-[1.5px] uppercase text-[#B7410E] mb-4">
-                  {section.category}
-                </h4>
-                {section.entries.map((entry, ei) => (
-                  <motion.p
-                    key={ei}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: ei * 0.03 }}
-                    className="font-['Work_Sans'] text-[15px] text-[#1A1A1A] py-2 border-b border-[#E8E4DF]"
+          {customCV.map((section, si) => {
+            const isOpen = openSections.includes(section.category);
+            return (
+              <FadeIn key={section.category} delay={si * 0.1}>
+                <div className="mb-4 border border-[#D4D0CB] bg-[#F5F0EB]">
+                  <button 
+                    onClick={() => toggleSection(section.category)}
+                    className="w-full flex items-center justify-between p-6 cursor-pointer focus:outline-none group"
                   >
-                    {entry}
-                  </motion.p>
-                ))}
-              </div>
-            </FadeIn>
-          ))}
+                    <h4 className="font-['Roboto_Mono'] text-[14px] tracking-[1.5px] uppercase text-[#B7410E] group-hover:text-[#1A1A1A] transition-colors">
+                      {section.category}
+                    </h4>
+                    <ChevronDown size={18} className={`text-[#B7410E] transform transition-transform duration-300 ${isOpen ? 'rotate-180' : 'rotate-0'}`} />
+                  </button>
+                  
+                  <motion.div
+                    initial={false}
+                    animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    className="overflow-hidden"
+                  >
+                    <div className="p-6 pt-0 space-y-4 border-t border-[#E8E4DF] mt-2">
+                      {section.entries.map((entry, ei) => (
+                        <p
+                          key={ei}
+                          className="font-['Work_Sans'] text-[15px] text-[#1A1A1A] pb-2 border-b border-[#E8E4DF] last:border-0"
+                        >
+                          {entry}
+                        </p>
+                      ))}
+                    </div>
+                  </motion.div>
+                </div>
+              </FadeIn>
+            );
+          })}
 
           {/* Download buttons */}
           <FadeIn>

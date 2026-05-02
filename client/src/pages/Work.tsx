@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "wouter";
 import { Plus } from "lucide-react";
 import { IMAGES } from "@/lib/constants";
@@ -5,7 +6,28 @@ import { FadeIn } from "@/components/FadeIn";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 
+const ALL_WORKS = [
+  { id: "fractured-light", img: IMAGES.art1, title: "Fractured Light", year: "2023", span: "md:col-span-2 md:row-span-2" },
+  { id: "urban-reflection", img: IMAGES.art2, title: "Urban Reflection", year: "2022", span: "" },
+  { id: "glass-cathedral", img: IMAGES.art3, title: "Glass Cathedral", year: "2023", span: "" },
+  { id: "auburn-avenue", img: IMAGES.auburnAvenue, title: "Auburn Avenue", year: "2022", span: "md:col-span-2" },
+  { id: "southside-medical", img: IMAGES.southsideMedical, title: "Southside Medical", year: "2015", span: "" },
+  { id: "broad-strokes", img: IMAGES.broadStrokes, title: "Broad Strokes on Broad Street", year: "2021", span: "md:col-span-2 md:row-span-2" },
+  { id: "material-memory", img: IMAGES.art4, title: "Material Memory", year: "2021", span: "" },
+  { id: "amber-prism", img: IMAGES.glassTexture, title: "Amber Prism", year: "2024", span: "md:col-span-2" },
+];
+
 export default function Work() {
+  const [activeFilter, setActiveFilter] = useState("ALL");
+
+  const sortedWorks = [...ALL_WORKS].sort((a, b) => {
+    if (activeFilter === "YEAR ↓") {
+      return parseInt(b.year) - parseInt(a.year);
+    }
+    // ALL just returns original order (or sort alphabetically if wanted, but original order is fine)
+    return 0;
+  });
+
   return (
     <div className="concept-1 bg-[#F5F0EB] text-[#1A1A1A] min-h-screen flex flex-col justify-between">
       <Navigation />
@@ -15,13 +37,18 @@ export default function Work() {
           <h2 className="font-['Roboto_Mono'] text-[36px] font-medium tracking-[1.5px] uppercase mb-4 pt-10">
             Work
           </h2>
-          <p className="font-['Work_Sans'] text-[17px] text-[#A0A0A0] mb-16 max-w-xl leading-relaxed">
-            Browse by series. Each collection represents a distinct chapter in the artist's evolving practice.
-          </p>
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+            <p className="font-['Work_Sans'] text-[17px] text-[#A0A0A0] max-w-xl leading-relaxed">
+              Browse by series. Each collection represents a distinct chapter in the artist's evolving practice.
+            </p>
+            <span className="font-['Roboto_Mono'] text-[11px] tracking-[2px] uppercase text-[#B7410E] animate-pulse">
+              Swipe to explore →
+            </span>
+          </div>
         </FadeIn>
 
         {/* Horizontal scroll gallery */}
-        <div className="overflow-x-auto pb-8 -mx-8 px-8 scrollbar-hide">
+        <div className="overflow-x-auto pb-8 -mx-8 px-8 scrollbar-hide cursor-grab active:cursor-grabbing">
           <div className="flex gap-6 w-max">
             {[
               { title: "EXHIBITIONS", desc: "Gallery shows and institutional presentations", img: IMAGES.broadStrokes, slug: "exhibitions" },
@@ -68,20 +95,21 @@ export default function Work() {
         {/* Series Grid Preview */}
         <div className="mt-24">
           <FadeIn>
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
               <h3 className="font-['Roboto_Mono'] text-[24px] font-medium tracking-[1px] uppercase">
                 Selected Works
               </h3>
               <div className="flex gap-6">
-                {["ALL", "YEAR ↓", "MEDIUM"].map((filter, i) => (
-                  <span
+                {["ALL", "YEAR ↓"].map((filter) => (
+                  <button
                     key={filter}
-                    className={`font-['Roboto_Mono'] text-[13px] tracking-[1px] uppercase cursor-pointer transition-colors duration-200 ${
-                      i === 0 ? "text-[#1A1A1A] border-b-[1.5px] border-[#B7410E] pb-1" : "text-[#A0A0A0] hover:text-[#1A1A1A]"
+                    onClick={() => setActiveFilter(filter)}
+                    className={`font-['Roboto_Mono'] text-[13px] tracking-[1px] uppercase cursor-pointer transition-colors duration-200 focus:outline-none ${
+                      activeFilter === filter ? "text-[#1A1A1A] border-b-[1.5px] border-[#B7410E] pb-1" : "text-[#A0A0A0] hover:text-[#1A1A1A]"
                     }`}
                   >
                     {filter}
-                  </span>
+                  </button>
                 ))}
               </div>
             </div>
@@ -89,16 +117,7 @@ export default function Work() {
 
           {/* Asymmetric masonry grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {[
-              { id: "fractured-light", img: IMAGES.art1, title: "Fractured Light", year: "2023", span: "md:col-span-2 md:row-span-2" },
-              { id: "urban-reflection", img: IMAGES.art2, title: "Urban Reflection", year: "2022", span: "" },
-              { id: "glass-cathedral", img: IMAGES.art3, title: "Glass Cathedral", year: "2023", span: "" },
-              { id: "auburn-avenue", img: IMAGES.auburnAvenue, title: "Auburn Avenue", year: "2022", span: "md:col-span-2" },
-              { id: "southside-medical", img: IMAGES.southsideMedical, title: "Southside Medical", year: "2015", span: "" },
-              { id: "broad-strokes", img: IMAGES.broadStrokes, title: "Broad Strokes on Broad Street", year: "2021", span: "md:col-span-2 md:row-span-2" },
-              { id: "material-memory", img: IMAGES.art4, title: "Material Memory", year: "2021", span: "" },
-              { id: "amber-prism", img: IMAGES.glassTexture, title: "Amber Prism", year: "2024", span: "md:col-span-2" },
-            ].map((item, i) => (
+            {sortedWorks.map((item, i) => (
               <FadeIn key={item.title} delay={i * 0.08} className={item.span}>
                 <Link href={`/work/${item.id}`}>
                   <div className="group relative overflow-hidden cursor-pointer bg-[#F5F0EB] p-3 block">

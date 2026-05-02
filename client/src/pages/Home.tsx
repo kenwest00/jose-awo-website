@@ -61,16 +61,16 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={loaded ? { opacity: 1 } : {}}
           transition={{ delay: 2, duration: 0.6 }}
-          className="absolute bottom-12 z-10 flex flex-col items-center gap-2"
+          className="absolute bottom-16 z-10 flex flex-col items-center gap-4"
         >
-          <span className="font-['Roboto_Mono'] text-[10px] tracking-[2px] uppercase text-[#F5F0EB]/70">
-            Scroll to explore
-          </span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-[1px] h-8 bg-[#B7410E]"
-          />
+          <Link href="/work">
+            <button className="relative group border border-[#F5F0EB]/50 hover:border-[#B7410E] px-8 py-4 overflow-hidden transition-colors duration-300 backdrop-blur-sm bg-black/20 cursor-pointer">
+              <span className="absolute inset-0 bg-[#B7410E] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+              <span className="relative font-['Roboto_Mono'] text-[12px] tracking-[2px] uppercase text-[#F5F0EB] transition-colors duration-300">
+                Enter Gallery
+              </span>
+            </button>
+          </Link>
         </motion.div>
       </section>
       

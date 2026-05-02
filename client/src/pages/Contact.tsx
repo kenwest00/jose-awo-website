@@ -2,9 +2,24 @@ import { FadeIn } from "@/components/FadeIn";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { useState } from "react";
+import { Check } from "lucide-react";
 
 export default function Contact() {
   const [inquiryType, setInquiryType] = useState("Art Collector");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    // Simulate form submission
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSuccess(true);
+      setTimeout(() => setIsSuccess(false), 5000);
+    }, 1500);
+  };
+
   return (
     <div className="concept-1 bg-[#F5F0EB] text-[#1A1A1A] min-h-screen flex flex-col justify-between">
       <Navigation />
@@ -17,32 +32,33 @@ export default function Contact() {
               Contact
             </h2>
 
-            <form className="space-y-8">
+            <form onSubmit={handleSubmit} className="space-y-8">
               {[
                 { label: "Full Name", type: "text", required: true },
                 { label: "Email", type: "email", required: true },
                 { label: "Phone", type: "tel", required: false },
               ].map((field) => (
-                <div key={field.label} className="group">
-                  <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#1A1A1A] transition-colors duration-200 block mb-2">
+                <div key={field.label} className="group relative">
+                  <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#B7410E] transition-colors duration-200 block mb-2">
                     {field.label} {!field.required && <span className="text-[#D4D0CB]">(optional)</span>}
                   </label>
                   <input
                     type={field.type}
-                    className="w-full bg-transparent border-b-2 border-[#D4D0CB] focus:border-[#B7410E] py-3 font-['Work_Sans'] text-[17px] text-[#1A1A1A] outline-none transition-colors duration-200"
+                    required={field.required}
+                    className="w-full bg-transparent border-b-2 border-[#D4D0CB] focus:border-[#B7410E] py-3 px-2 focus:bg-[#B7410E]/5 font-['Work_Sans'] text-[17px] text-[#1A1A1A] outline-none transition-all duration-300"
                   />
                 </div>
               ))}
 
               {/* Dropdown */}
-              <div className="group">
-                <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#1A1A1A] transition-colors duration-200 block mb-2">
+              <div className="group relative">
+                <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#B7410E] transition-colors duration-200 block mb-2">
                   I am a...
                 </label>
                 <select 
                   value={inquiryType}
                   onChange={(e) => setInquiryType(e.target.value)}
-                  className="w-full bg-transparent border-b-2 border-[#D4D0CB] focus:border-[#B7410E] py-3 font-['Work_Sans'] text-[17px] text-[#1A1A1A] outline-none transition-colors duration-200 appearance-none"
+                  className="w-full bg-transparent border-b-2 border-[#D4D0CB] focus:border-[#B7410E] py-3 px-2 focus:bg-[#B7410E]/5 font-['Work_Sans'] text-[17px] text-[#1A1A1A] outline-none transition-all duration-300 appearance-none cursor-pointer"
                 >
                   <option>Art Collector</option>
                   <option>Curator / Gallery</option>
@@ -55,37 +71,39 @@ export default function Contact() {
               {/* Conditional Institution Field */}
               {inquiryType === "Curator / Gallery" && (
                 <FadeIn>
-                  <div className="group">
-                    <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#1A1A1A] transition-colors duration-200 block mb-2">
+                  <div className="group relative">
+                    <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#B7410E] transition-colors duration-200 block mb-2">
                       Institution Name
                     </label>
                     <input
                       type="text"
-                      className="w-full bg-transparent border-b-2 border-[#D4D0CB] focus:border-[#B7410E] py-3 font-['Work_Sans'] text-[17px] text-[#1A1A1A] outline-none transition-colors duration-200"
+                      className="w-full bg-transparent border-b-2 border-[#D4D0CB] focus:border-[#B7410E] py-3 px-2 focus:bg-[#B7410E]/5 font-['Work_Sans'] text-[17px] text-[#1A1A1A] outline-none transition-all duration-300"
                     />
                   </div>
                 </FadeIn>
               )}
 
               {/* Subject */}
-              <div className="group">
-                <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#1A1A1A] transition-colors duration-200 block mb-2">
+              <div className="group relative">
+                <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#B7410E] transition-colors duration-200 block mb-2">
                   Subject
                 </label>
                 <input
                   type="text"
-                  className="w-full bg-transparent border-b-2 border-[#D4D0CB] focus:border-[#B7410E] py-3 font-['Work_Sans'] text-[17px] text-[#1A1A1A] outline-none transition-colors duration-200"
+                  required
+                  className="w-full bg-transparent border-b-2 border-[#D4D0CB] focus:border-[#B7410E] py-3 px-2 focus:bg-[#B7410E]/5 font-['Work_Sans'] text-[17px] text-[#1A1A1A] outline-none transition-all duration-300"
                 />
               </div>
 
               {/* Message */}
-              <div className="group">
-                <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#1A1A1A] transition-colors duration-200 block mb-2">
+              <div className="group relative">
+                <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#B7410E] transition-colors duration-200 block mb-2">
                   Message
                 </label>
                 <textarea
                   rows={5}
-                  className="w-full bg-transparent border-b-2 border-[#D4D0CB] focus:border-[#B7410E] py-3 font-['Work_Sans'] text-[17px] text-[#1A1A1A] outline-none transition-colors duration-200 resize-none"
+                  required
+                  className="w-full bg-transparent border-b-2 border-[#D4D0CB] focus:border-[#B7410E] py-3 px-2 focus:bg-[#B7410E]/5 font-['Work_Sans'] text-[17px] text-[#1A1A1A] outline-none transition-all duration-300 resize-none"
                 />
               </div>
 
@@ -94,7 +112,7 @@ export default function Contact() {
                 <input 
                   type="checkbox" 
                   id="newsletter"
-                  className="w-4 h-4 accent-[#B7410E]"
+                  className="w-4 h-4 accent-[#B7410E] cursor-pointer"
                 />
                 <label htmlFor="newsletter" className="font-['Work_Sans'] text-[14px] text-[#666] cursor-pointer select-none">
                   Subscribe to studio newsletter for exhibition updates
@@ -103,12 +121,13 @@ export default function Contact() {
 
               {/* Submit */}
               <button 
-                type="button"
-                className="relative group w-full border-2 border-[#B7410E] py-4 overflow-hidden transition-colors duration-300 mt-4 cursor-pointer"
+                type="submit"
+                disabled={isSubmitting || isSuccess}
+                className="relative group w-full border-2 border-[#B7410E] py-4 overflow-hidden transition-colors duration-300 mt-4 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                <span className="absolute inset-0 bg-[#B7410E] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
-                <span className="relative font-['Roboto_Mono'] text-[14px] tracking-[1.5px] uppercase text-[#B7410E] group-hover:text-[#F5F0EB] transition-colors duration-300">
-                  Send Message
+                {!isSuccess && <span className="absolute inset-0 bg-[#B7410E] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />}
+                <span className="relative flex items-center justify-center gap-2 font-['Roboto_Mono'] text-[14px] tracking-[1.5px] uppercase transition-colors duration-300 text-[#B7410E] group-hover:text-[#F5F0EB]">
+                  {isSubmitting ? "Sending..." : isSuccess ? <><Check size={18} /> Message Sent</> : "Send Message"}
                 </span>
               </button>
             </form>
