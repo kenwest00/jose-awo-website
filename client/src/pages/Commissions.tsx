@@ -41,11 +41,11 @@ export default function Commissions() {
         <FadeIn>
           <div className="max-w-6xl mx-auto mb-16 pt-10">
             <Link href="/work">
-              <span className="inline-flex items-center gap-2 font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] hover:text-[#B7410E] transition-colors cursor-pointer mb-8">
+              <span className="inline-flex items-center gap-2 font-['Space_Grotesk'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] hover:text-[#B7410E] transition-colors cursor-pointer mb-8">
                 ← Back to Work
               </span>
             </Link>
-            <h2 className="font-['Roboto_Mono'] text-[36px] font-medium tracking-[1.5px] uppercase mb-4">
+            <h2 className="font-['Space_Grotesk'] text-[36px] font-medium tracking-[1.5px] uppercase mb-4">
               Commissions
             </h2>
             <p className="font-['Work_Sans'] text-[17px] text-[#A0A0A0] max-w-2xl leading-relaxed">
@@ -77,7 +77,7 @@ export default function Commissions() {
                       <span className="block font-['Work_Sans'] text-[14px] text-[#1A1A1A] group-hover:text-[#B7410E] transition-colors duration-300">
                         {item.title}
                       </span>
-                      <span className="block font-['Roboto_Mono'] text-[11px] text-[#A0A0A0] uppercase tracking-[1px] mt-1">
+                      <span className="block font-['Space_Grotesk'] text-[11px] text-[#A0A0A0] uppercase tracking-[1px] mt-1">
                         {item.client}, {item.year}
                       </span>
                     </div>

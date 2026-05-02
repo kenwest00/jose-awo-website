@@ -50,7 +50,7 @@ export function Navigation() {
           <Link href="/">
             <span 
               onClick={() => setHash("")}
-              className="font-['Roboto_Mono'] text-[13px] tracking-[2px] uppercase text-[#1A1A1A] hover:text-[#B7410E] transition-colors duration-200 flex items-center gap-2 font-bold cursor-pointer relative z-[60]"
+              className="font-['Space_Grotesk'] text-[13px] tracking-[2px] uppercase text-[#1A1A1A] hover:text-[#B7410E] transition-colors duration-200 flex items-center gap-2 font-bold cursor-pointer relative z-[60]"
             >
               JOSÉ AWO ART
             </span>
@@ -77,7 +77,7 @@ export function Navigation() {
                     }
                   }}
                 >
-                  <span className={`relative font-['Roboto_Mono'] text-[13px] font-medium tracking-[2px] uppercase transition-colors duration-200 group cursor-pointer ${isActive ? 'text-[#B7410E]' : 'text-[#1A1A1A] hover:text-[#B7410E]'}`}>
+                  <span className={`relative font-['Space_Grotesk'] text-[13px] font-medium tracking-[2px] uppercase transition-colors duration-200 group cursor-pointer ${isActive ? 'text-[#B7410E]' : 'text-[#1A1A1A] hover:text-[#B7410E]'}`}>
                     {item.label}
                     <span className={`absolute -bottom-1 left-0 right-0 h-[1.5px] bg-[#B7410E] transform origin-left transition-transform duration-300 ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
                   </span>
@@ -119,7 +119,7 @@ export function Navigation() {
                   }
                 }}
               >
-                <span className={`font-['Roboto_Mono'] text-[24px] font-medium tracking-[3px] uppercase transition-colors duration-200 cursor-pointer ${isActive ? 'text-[#B7410E]' : 'text-[#1A1A1A]'}`}>
+                <span className={`font-['Space_Grotesk'] text-[24px] font-medium tracking-[3px] uppercase transition-colors duration-200 cursor-pointer ${isActive ? 'text-[#B7410E]' : 'text-[#1A1A1A]'}`}>
                   {item.label}
                 </span>
               </Link>

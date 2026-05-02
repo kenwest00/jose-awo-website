@@ -179,7 +179,7 @@ export default function Home() {
       <section id="bio" className="py-32 px-8 bg-[#F5F0EB]">
         <div className="max-w-6xl mx-auto">
           <FadeIn>
-            <h2 className="font-['Roboto_Mono'] text-[36px] font-medium tracking-[1.5px] uppercase mb-16 text-center">
+            <h2 className="font-['Space_Grotesk'] text-[36px] font-medium tracking-[1.5px] uppercase mb-16 text-center">
               José Awo Bio
             </h2>
           </FadeIn>
@@ -203,7 +203,7 @@ export default function Home() {
                 <div className="pt-8">
                   <a href="/s/jose-art-resume.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 group border-2 border-[#1A1A1A] px-6 py-3 relative overflow-hidden transition-colors duration-300">
                     <span className="absolute inset-0 bg-[#B7410E] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
-                    <span className="relative flex items-center gap-2 font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#1A1A1A] group-hover:text-white transition-colors duration-300">
+                    <span className="relative flex items-center gap-2 font-['Space_Grotesk'] text-[12px] tracking-[1.5px] uppercase text-[#1A1A1A] group-hover:text-white transition-colors duration-300">
                       <Download size={14} /> Download Resume
                     </span>
                   </a>
@@ -221,7 +221,7 @@ export default function Home() {
               </FadeIn>
               
               <FadeIn>
-                <h3 className="font-['Roboto_Mono'] text-[18px] tracking-[1.5px] uppercase text-[#B7410E] mb-6">
+                <h3 className="font-['Space_Grotesk'] text-[18px] tracking-[1.5px] uppercase text-[#B7410E] mb-6">
                   Curriculum Vitae
                 </h3>
                 {CUSTOM_CV.map((section) => {
@@ -232,7 +232,7 @@ export default function Home() {
                         onClick={() => toggleCVSection(section.category)}
                         className="w-full flex items-center justify-between p-5 cursor-pointer focus:outline-none group"
                       >
-                        <h4 className="font-['Roboto_Mono'] text-[13px] tracking-[1px] uppercase text-[#B7410E] group-hover:text-[#1A1A1A] transition-colors text-left">
+                        <h4 className="font-['Space_Grotesk'] text-[13px] tracking-[1px] uppercase text-[#B7410E] group-hover:text-[#1A1A1A] transition-colors text-left">
                           {section.category}
                         </h4>
                         <ChevronDown size={18} className={`text-[#B7410E] transform transition-transform duration-300 flex-shrink-0 ${isOpen ? 'rotate-180' : 'rotate-0'}`} />
@@ -278,7 +278,7 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/90 via-[#1A1A1A]/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
               
               <div className="absolute bottom-8 left-8 md:bottom-12 md:left-12 flex flex-col gap-2">
-                <span className="font-['Roboto_Mono'] text-[11px] tracking-[3px] font-bold text-[#B7410E]">
+                <span className="font-['Space_Grotesk'] text-[11px] tracking-[3px] font-bold text-[#B7410E]">
                   {cat.series}
                 </span>
                 <h2 className="font-['Work_Sans'] text-[32px] md:text-[42px] text-[#F5F0EB] tracking-wide font-light">
@@ -294,7 +294,7 @@ export default function Home() {
       <section className="bg-[#1A1A1A] py-32 px-8 relative overflow-hidden">
         <FadeIn>
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 gap-4">
-            <h3 className="font-['Roboto_Mono'] text-[14px] font-bold tracking-[3px] uppercase text-[#F5F0EB]">
+            <h3 className="font-['Space_Grotesk'] text-[14px] font-bold tracking-[3px] uppercase text-[#F5F0EB]">
               Selected Works
             </h3>
             <span className="font-['Work_Sans'] italic text-[15px] text-[#A0A0A0]">
@@ -326,7 +326,7 @@ export default function Home() {
                       <h4 className="font-['Work_Sans'] text-[16px] text-[#F5F0EB] group-hover:text-[#B7410E] transition-colors duration-300">
                         {item.title}
                       </h4>
-                      <span className="font-['Roboto_Mono'] text-[12px] text-[#888]">
+                      <span className="font-['Space_Grotesk'] text-[12px] text-[#888]">
                         {item.year}
                       </span>
                     </div>
@@ -342,7 +342,7 @@ export default function Home() {
       <section id="activism" className="py-32 px-8 bg-[#F5F0EB]">
         <div className="max-w-4xl mx-auto text-center">
           <FadeIn>
-            <h2 className="font-['Roboto_Mono'] text-[36px] font-medium tracking-[1.5px] uppercase mb-12 text-[#1A1A1A]">
+            <h2 className="font-['Space_Grotesk'] text-[36px] font-medium tracking-[1.5px] uppercase mb-12 text-[#1A1A1A]">
               Activism
             </h2>
             <p className="font-['Work_Sans'] text-[19px] leading-[1.8] text-[#1A1A1A]">
@@ -363,7 +363,7 @@ export default function Home() {
             </div>
           </FadeIn>
           <FadeIn>
-            <h2 className="font-['Roboto_Mono'] text-[24px] font-medium tracking-[1.5px] uppercase mb-8 text-[#B7410E]">
+            <h2 className="font-['Space_Grotesk'] text-[24px] font-medium tracking-[1.5px] uppercase mb-8 text-[#B7410E]">
               Johnny Gant Event <br/>(Atlanta City Hall)
             </h2>
             <p className="font-['Work_Sans'] text-[17px] leading-[1.65] text-[#D4D0CB]">
@@ -377,7 +377,7 @@ export default function Home() {
       <section className="py-32 px-8 bg-[#F5F0EB]">
         <div className="max-w-6xl mx-auto">
           <FadeIn>
-            <h2 className="font-['Roboto_Mono'] text-[36px] font-medium tracking-[1.5px] uppercase mb-12 text-center text-[#1A1A1A]">
+            <h2 className="font-['Space_Grotesk'] text-[36px] font-medium tracking-[1.5px] uppercase mb-12 text-center text-[#1A1A1A]">
               Broad Strokes on Broad Street
             </h2>
           </FadeIn>
@@ -417,20 +417,20 @@ export default function Home() {
       <section id="contact" className="py-32 px-8 bg-[#1A1A1A] text-[#F5F0EB]">
         <div className="max-w-3xl mx-auto">
           <FadeIn>
-            <h2 className="font-['Roboto_Mono'] text-[36px] font-medium tracking-[1.5px] uppercase mb-12 text-center">
+            <h2 className="font-['Space_Grotesk'] text-[36px] font-medium tracking-[1.5px] uppercase mb-12 text-center">
               Contact José
             </h2>
 
             <form onSubmit={handleContactSubmit} className="space-y-8 bg-[#2A2A2A] p-8 md:p-12 border-t-4 border-[#B7410E]">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="group relative">
-                  <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#B7410E] transition-colors duration-200 block mb-2">
+                  <label className="font-['Space_Grotesk'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#B7410E] transition-colors duration-200 block mb-2">
                     First Name
                   </label>
                   <input type="text" required className="w-full bg-transparent border-b-2 border-[#555] focus:border-[#B7410E] py-3 px-2 focus:bg-[#B7410E]/10 font-['Work_Sans'] text-[17px] text-[#F5F0EB] outline-none transition-all duration-300" />
                 </div>
                 <div className="group relative">
-                  <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#B7410E] transition-colors duration-200 block mb-2">
+                  <label className="font-['Space_Grotesk'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#B7410E] transition-colors duration-200 block mb-2">
                     Last Name
                   </label>
                   <input type="text" required className="w-full bg-transparent border-b-2 border-[#555] focus:border-[#B7410E] py-3 px-2 focus:bg-[#B7410E]/10 font-['Work_Sans'] text-[17px] text-[#F5F0EB] outline-none transition-all duration-300" />
@@ -438,21 +438,21 @@ export default function Home() {
               </div>
 
               <div className="group relative">
-                <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#B7410E] transition-colors duration-200 block mb-2">
+                <label className="font-['Space_Grotesk'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#B7410E] transition-colors duration-200 block mb-2">
                   Email
                 </label>
                 <input type="email" required className="w-full bg-transparent border-b-2 border-[#555] focus:border-[#B7410E] py-3 px-2 focus:bg-[#B7410E]/10 font-['Work_Sans'] text-[17px] text-[#F5F0EB] outline-none transition-all duration-300" />
               </div>
 
               <div className="group relative">
-                <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#B7410E] transition-colors duration-200 block mb-2">
+                <label className="font-['Space_Grotesk'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#B7410E] transition-colors duration-200 block mb-2">
                   Subject
                 </label>
                 <input type="text" required className="w-full bg-transparent border-b-2 border-[#555] focus:border-[#B7410E] py-3 px-2 focus:bg-[#B7410E]/10 font-['Work_Sans'] text-[17px] text-[#F5F0EB] outline-none transition-all duration-300" />
               </div>
 
               <div className="group relative">
-                <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#B7410E] transition-colors duration-200 block mb-2">
+                <label className="font-['Space_Grotesk'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#B7410E] transition-colors duration-200 block mb-2">
                   Message
                 </label>
                 <textarea rows={5} required className="w-full bg-transparent border-b-2 border-[#555] focus:border-[#B7410E] py-3 px-2 focus:bg-[#B7410E]/10 font-['Work_Sans'] text-[17px] text-[#F5F0EB] outline-none transition-all duration-300 resize-none" />
@@ -464,7 +464,7 @@ export default function Home() {
                 className="relative group w-full border-2 border-[#B7410E] py-4 overflow-hidden transition-colors duration-300 mt-4 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {!isSuccess && <span className="absolute inset-0 bg-[#B7410E] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />}
-                <span className="relative flex items-center justify-center gap-2 font-['Roboto_Mono'] text-[14px] tracking-[1.5px] uppercase transition-colors duration-300 text-[#B7410E] group-hover:text-[#F5F0EB]">
+                <span className="relative flex items-center justify-center gap-2 font-['Space_Grotesk'] text-[14px] tracking-[1.5px] uppercase transition-colors duration-300 text-[#B7410E] group-hover:text-[#F5F0EB]">
                   {isSubmitting ? "Sending..." : isSuccess ? <><Check size={18} /> Sent</> : "Submit"}
                 </span>
               </button>
@@ -503,7 +503,7 @@ export default function Home() {
               />
 
               <div className="sticky top-0 bg-[#1A1A1A]/85 backdrop-blur-xl border-b border-[#333] px-8 md:px-12 py-8 flex justify-between items-center z-20">
-                <h3 className="font-['Roboto_Mono'] text-[32px] md:text-[48px] font-bold tracking-[4px] uppercase text-[#F5F0EB]">
+                <h3 className="font-['Space_Grotesk'] text-[32px] md:text-[48px] font-bold tracking-[4px] uppercase text-[#F5F0EB]">
                   {activeModal}
                 </h3>
                 <button 
@@ -528,7 +528,7 @@ export default function Home() {
                     return (
                       <div key={idx} className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-8 pb-8 border-b border-[#333] last:border-0 last:pb-0 pt-8 first:pt-0 group">
                         {year && (
-                          <span className="font-['Roboto_Mono'] text-[16px] text-[#B7410E] tracking-[2px] font-bold w-20 flex-shrink-0 group-hover:text-[#F5F0EB] transition-colors duration-300">
+                          <span className="font-['Space_Grotesk'] text-[16px] text-[#B7410E] tracking-[2px] font-bold w-20 flex-shrink-0 group-hover:text-[#F5F0EB] transition-colors duration-300">
                             {year}
                           </span>
                         )}

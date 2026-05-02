@@ -95,7 +95,7 @@ export default function ArtworkDetail() {
 
           {/* Right panel - Details */}
           <FadeIn className="lg:w-[35%] bg-[#F5F0EB] p-8 lg:p-12 flex flex-col justify-center" delay={0.2}>
-            <h2 className="font-['Roboto_Mono'] text-[28px] font-medium tracking-[1px] uppercase mb-8">
+            <h2 className="font-['Space_Grotesk'] text-[28px] font-medium tracking-[1px] uppercase mb-8">
               {artwork.title}
             </h2>
 
@@ -113,7 +113,7 @@ export default function ArtworkDetail() {
                   <span className="font-['Work_Sans'] text-[13px] text-[#A0A0A0] tracking-[0.5px]">
                     {field.label}
                   </span>
-                  <span className={`${field.mono ? "font-['Roboto_Mono'] text-[13px] uppercase tracking-[1px]" : "font-['Work_Sans'] text-[15px]"} ${field.color} ${field.link ? "hover:underline cursor-pointer" : ""}`}>
+                  <span className={`${field.mono ? "font-['Space_Grotesk'] text-[13px] uppercase tracking-[1px]" : "font-['Work_Sans'] text-[15px]"} ${field.color} ${field.link ? "hover:underline cursor-pointer" : ""}`}>
                     {field.value}
                   </span>
                 </div>
@@ -131,7 +131,7 @@ export default function ArtworkDetail() {
               className="relative group w-full border-2 border-[#B7410E] py-4 overflow-hidden transition-colors duration-300"
             >
               <span className="absolute inset-0 bg-[#B7410E] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
-              <span className="relative font-['Roboto_Mono'] text-[14px] tracking-[1.5px] uppercase text-[#B7410E] group-hover:text-[#F5F0EB] transition-colors duration-300">
+              <span className="relative font-['Space_Grotesk'] text-[14px] tracking-[1.5px] uppercase text-[#B7410E] group-hover:text-[#F5F0EB] transition-colors duration-300">
                 Inquire About This Piece
               </span>
             </button>
@@ -139,12 +139,12 @@ export default function ArtworkDetail() {
             {/* Prev/Next */}
             <div className="flex justify-between mt-8">
               <Link href={`/work/${prevId}`}>
-                <a className="flex items-center gap-2 font-['Roboto_Mono'] text-[12px] tracking-[1px] uppercase text-[#A0A0A0] hover:text-[#1A1A1A] hover:gap-3 transition-all duration-200 cursor-pointer">
+                <a className="flex items-center gap-2 font-['Space_Grotesk'] text-[12px] tracking-[1px] uppercase text-[#A0A0A0] hover:text-[#1A1A1A] hover:gap-3 transition-all duration-200 cursor-pointer">
                   <ChevronLeft size={14} /> Previous
                 </a>
               </Link>
               <Link href={`/work/${nextId}`}>
-                <a className="flex items-center gap-2 font-['Roboto_Mono'] text-[12px] tracking-[1px] uppercase text-[#A0A0A0] hover:text-[#1A1A1A] hover:gap-3 transition-all duration-200 cursor-pointer">
+                <a className="flex items-center gap-2 font-['Space_Grotesk'] text-[12px] tracking-[1px] uppercase text-[#A0A0A0] hover:text-[#1A1A1A] hover:gap-3 transition-all duration-200 cursor-pointer">
                   Next <ChevronRight size={14} />
                 </a>
               </Link>
@@ -166,13 +166,13 @@ export default function ArtworkDetail() {
               <X size={24} />
             </button>
             
-            <h3 className="font-['Roboto_Mono'] text-[24px] font-medium tracking-[1px] uppercase text-[#1A1A1A] mb-8">
+            <h3 className="font-['Space_Grotesk'] text-[24px] font-medium tracking-[1px] uppercase text-[#1A1A1A] mb-8">
               Inquire
             </h3>
             
             <form className="space-y-6">
               <div className="group">
-                <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] block mb-2">
+                <label className="font-['Space_Grotesk'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] block mb-2">
                   Subject
                 </label>
                 <input
@@ -184,7 +184,7 @@ export default function ArtworkDetail() {
               </div>
               
               <div className="group">
-                <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#1A1A1A] transition-colors duration-200 block mb-2">
+                <label className="font-['Space_Grotesk'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#1A1A1A] transition-colors duration-200 block mb-2">
                   Name
                 </label>
                 <input
@@ -195,7 +195,7 @@ export default function ArtworkDetail() {
               </div>
 
               <div className="group">
-                <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#1A1A1A] transition-colors duration-200 block mb-2">
+                <label className="font-['Space_Grotesk'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#1A1A1A] transition-colors duration-200 block mb-2">
                   Email
                 </label>
                 <input
@@ -206,7 +206,7 @@ export default function ArtworkDetail() {
               </div>
 
               <div className="group">
-                <label className="font-['Roboto_Mono'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#1A1A1A] transition-colors duration-200 block mb-2">
+                <label className="font-['Space_Grotesk'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#1A1A1A] transition-colors duration-200 block mb-2">
                   Message
                 </label>
                 <textarea
@@ -222,7 +222,7 @@ export default function ArtworkDetail() {
                 className="relative group w-full border-2 border-[#B7410E] py-4 overflow-hidden transition-colors duration-300 mt-4 cursor-pointer"
               >
                 <span className="absolute inset-0 bg-[#B7410E] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
-                <span className="relative font-['Roboto_Mono'] text-[14px] tracking-[1.5px] uppercase text-[#B7410E] group-hover:text-[#F5F0EB] transition-colors duration-300">
+                <span className="relative font-['Space_Grotesk'] text-[14px] tracking-[1.5px] uppercase text-[#B7410E] group-hover:text-[#F5F0EB] transition-colors duration-300">
                   Send Inquiry
                 </span>
               </button>
