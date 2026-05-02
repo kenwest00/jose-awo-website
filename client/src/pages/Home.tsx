@@ -491,7 +491,18 @@ export default function Home() {
               className="bg-[#1A1A1A] w-full max-w-5xl max-h-[90vh] overflow-y-auto border-4 border-[#B7410E] relative shadow-[0_0_50px_rgba(183,65,14,0.15)]"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="sticky top-0 bg-[#1A1A1A]/95 backdrop-blur-md border-b border-[#333] px-8 md:px-12 py-8 flex justify-between items-center z-10">
+              {/* Glass Background Metaphor */}
+              <div 
+                className="absolute inset-0 z-0 opacity-20 pointer-events-none mix-blend-screen grayscale-[0.5]"
+                style={{
+                  backgroundImage: `url(${IMAGES.glassTexture})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundAttachment: 'fixed'
+                }}
+              />
+
+              <div className="sticky top-0 bg-[#1A1A1A]/85 backdrop-blur-xl border-b border-[#333] px-8 md:px-12 py-8 flex justify-between items-center z-20">
                 <h3 className="font-['Roboto_Mono'] text-[32px] md:text-[48px] font-bold tracking-[4px] uppercase text-[#F5F0EB]">
                   {activeModal}
                 </h3>
@@ -503,7 +514,7 @@ export default function Home() {
                 </button>
               </div>
               
-              <div className="p-8 md:p-12 space-y-2">
+              <div className="relative z-10 p-8 md:p-12 space-y-2">
                 {activeModal === "Repurposed Glass" ? (
                   <p className="font-['Work_Sans'] text-[24px] text-[#A0A0A0] font-light leading-relaxed">
                     Recent works focusing on the intersection of light, texture, and repurposed industrial materials.
