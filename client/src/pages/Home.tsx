@@ -469,33 +469,46 @@ export default function Home() {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="bg-[#F5F0EB] w-full max-w-4xl max-h-[85vh] overflow-y-auto border-4 border-[#B7410E] relative shadow-2xl"
+              className="bg-[#1A1A1A] w-full max-w-5xl max-h-[90vh] overflow-y-auto border-4 border-[#B7410E] relative shadow-[0_0_50px_rgba(183,65,14,0.15)]"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="sticky top-0 bg-[#F5F0EB] border-b border-[#D4D0CB] px-8 py-6 flex justify-between items-center z-10">
-                <h3 className="font-['Roboto_Mono'] text-[24px] tracking-[2px] uppercase text-[#1A1A1A]">
+              <div className="sticky top-0 bg-[#1A1A1A]/95 backdrop-blur-md border-b border-[#333] px-8 md:px-12 py-8 flex justify-between items-center z-10">
+                <h3 className="font-['Roboto_Mono'] text-[32px] md:text-[48px] font-bold tracking-[4px] uppercase text-[#F5F0EB]">
                   {activeModal}
                 </h3>
                 <button 
                   onClick={() => setActiveModal(null)}
-                  className="text-[#1A1A1A] hover:text-[#B7410E] transition-colors p-2"
+                  className="text-[#F5F0EB] hover:text-[#B7410E] transition-colors p-2"
                 >
-                  <X size={28} />
+                  <X size={36} />
                 </button>
               </div>
               
-              <div className="p-8 space-y-4">
+              <div className="p-8 md:p-12 space-y-2">
                 {activeModal === "Repurposed Glass" ? (
-                  <p className="font-['Work_Sans'] text-[16px] text-[#1A1A1A] italic">
+                  <p className="font-['Work_Sans'] text-[24px] text-[#A0A0A0] font-light leading-relaxed">
                     Recent works focusing on the intersection of light, texture, and repurposed industrial materials.
                   </p>
                 ) : (
-                  CUSTOM_CV.find(section => section.category === activeModal)?.entries.map((entry, idx) => (
-                    <div key={idx} className="font-['Work_Sans'] text-[16px] text-[#1A1A1A] pb-4 border-b border-[#E8E4DF] last:border-0 last:pb-0">
-                      {entry}
-                    </div>
-                  )) || (
-                    <p className="font-['Work_Sans'] text-[16px] text-[#1A1A1A] italic">
+                  CUSTOM_CV.find(section => section.category === activeModal)?.entries.map((entry, idx) => {
+                    const parts = entry.split(" — ");
+                    const year = parts.length > 1 ? parts[0] : "";
+                    const details = parts.length > 1 ? parts.slice(1).join(" — ") : entry;
+                    
+                    return (
+                      <div key={idx} className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-8 pb-8 border-b border-[#333] last:border-0 last:pb-0 pt-8 first:pt-0 group">
+                        {year && (
+                          <span className="font-['Roboto_Mono'] text-[16px] text-[#B7410E] tracking-[2px] font-bold w-20 flex-shrink-0 group-hover:text-[#F5F0EB] transition-colors duration-300">
+                            {year}
+                          </span>
+                        )}
+                        <span className="font-['Work_Sans'] text-[20px] md:text-[24px] text-[#F5F0EB] font-light group-hover:text-[#B7410E] transition-colors duration-300">
+                          {details}
+                        </span>
+                      </div>
+                    );
+                  }) || (
+                    <p className="font-['Work_Sans'] text-[24px] text-[#A0A0A0] font-light">
                       Details coming soon.
                     </p>
                   )
