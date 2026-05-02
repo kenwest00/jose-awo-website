@@ -38,10 +38,22 @@ export function Navigation() {
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-10">
             {links.map((item) => (
-              <Link key={item.label} href={item.href}>
-                <span className={`relative font-['Roboto_Mono'] text-[13px] font-medium tracking-[2px] uppercase transition-colors duration-200 group cursor-pointer ${location === item.href ? 'text-[#B7410E]' : 'text-[#1A1A1A] hover:text-[#B7410E]'}`}>
+              <Link 
+                key={item.label} 
+                href={item.href}
+                onClick={() => {
+                  if (item.href.startsWith("/#")) {
+                    const id = item.href.replace("/#", "");
+                    const element = document.getElementById(id);
+                    if (element) {
+                      setTimeout(() => element.scrollIntoView({ behavior: "smooth" }), 10);
+                    }
+                  }
+                }}
+              >
+                <span className={`relative font-['Roboto_Mono'] text-[13px] font-medium tracking-[2px] uppercase transition-colors duration-200 group cursor-pointer ${location === item.href || (location === "/" && window.location.hash === item.href.replace("/", "")) ? 'text-[#B7410E]' : 'text-[#1A1A1A] hover:text-[#B7410E]'}`}>
                   {item.label}
-                  <span className={`absolute -bottom-1 left-0 right-0 h-[1.5px] bg-[#B7410E] transform origin-left transition-transform duration-300 ${location === item.href ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
+                  <span className={`absolute -bottom-1 left-0 right-0 h-[1.5px] bg-[#B7410E] transform origin-left transition-transform duration-300 ${location === item.href || (location === "/" && window.location.hash === item.href.replace("/", "")) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`} />
                 </span>
               </Link>
             ))}
@@ -61,11 +73,21 @@ export function Navigation() {
       <div className={`fixed inset-0 z-[55] bg-[#F5F0EB] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] md:hidden flex flex-col justify-center items-center ${mobileMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}>
         <div className="flex flex-col items-center gap-8">
           {links.map((item) => (
-            <Link key={item.label} href={item.href}>
-              <span 
-                onClick={() => setMobileMenuOpen(false)}
-                className={`font-['Roboto_Mono'] text-[24px] font-medium tracking-[3px] uppercase transition-colors duration-200 cursor-pointer ${location === item.href ? 'text-[#B7410E]' : 'text-[#1A1A1A]'}`}
-              >
+            <Link 
+              key={item.label} 
+              href={item.href}
+              onClick={() => {
+                setMobileMenuOpen(false);
+                if (item.href.startsWith("/#")) {
+                  const id = item.href.replace("/#", "");
+                  const element = document.getElementById(id);
+                  if (element) {
+                    setTimeout(() => element.scrollIntoView({ behavior: "smooth" }), 300); // Wait for menu close animation
+                  }
+                }
+              }}
+            >
+              <span className={`font-['Roboto_Mono'] text-[24px] font-medium tracking-[3px] uppercase transition-colors duration-200 cursor-pointer ${location === item.href || (location === "/" && window.location.hash === item.href.replace("/", "")) ? 'text-[#B7410E]' : 'text-[#1A1A1A]'}`}>
                 {item.label}
               </span>
             </Link>
