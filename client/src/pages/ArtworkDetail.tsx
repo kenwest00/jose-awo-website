@@ -1,4 +1,4 @@
-import { useParams } from "wouter";
+import { useParams, Link } from "wouter";
 import { Search, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useState } from "react";
 import { IMAGES } from "@/lib/constants";
@@ -57,42 +57,20 @@ const ARTWORKS: Record<string, any> = {
     series: "Prisms",
     status: "AVAILABLE",
     note: '"Trapping light in amber."'
-  },
-  "auburn-avenue": {
-    title: "Auburn Avenue",
-    img: IMAGES.auburnAvenue,
-    year: "2022",
-    medium: "Mixed media on canvas",
-    dimensions: "48 × 60 inches",
-    series: "Commissions",
-    status: "COMMISSIONED",
-    note: '"A tribute to the historical heartbeat of Atlanta, blending architectural structure with vibrant communal energy."'
-  },
-  "southside-medical": {
-    title: "Southside Medical",
-    img: IMAGES.southsideMedical,
-    year: "2015",
-    medium: "Mural / Mixed Media",
-    dimensions: "Large Scale",
-    series: "Commissions",
-    status: "COMMISSIONED",
-    note: '"Hope Rises Like a Phoenix — a piece celebrating resilience and community healing at the South Side Medical Center."'
-  },
-  "broad-strokes": {
-    title: "Broad Strokes on Broad Street",
-    img: IMAGES.broadStrokes,
-    year: "2021",
-    medium: "Mural / Public Art",
-    dimensions: "Public Installation",
-    series: "Public Art",
-    status: "PUBLIC",
-    note: '"A layered abstract exploration of urban space, using bold lines and vivid colors to transform the streetscape."'
   }
 };
 
 export default function ArtworkDetail() {
   const { id } = useParams();
-  const artwork = id && ARTWORKS[id] ? ARTWORKS[id] : ARTWORKS["fractured-light"];
+  const currentId = id || "fractured-light";
+  const artwork = ARTWORKS[currentId] || ARTWORKS["fractured-light"];
+  
+  const keys = Object.keys(ARTWORKS);
+  const currentIndex = keys.indexOf(currentId) !== -1 ? keys.indexOf(currentId) : 0;
+  
+  const prevId = currentIndex > 0 ? keys[currentIndex - 1] : keys[keys.length - 1];
+  const nextId = currentIndex < keys.length - 1 ? keys[currentIndex + 1] : keys[0];
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -160,12 +138,16 @@ export default function ArtworkDetail() {
 
             {/* Prev/Next */}
             <div className="flex justify-between mt-8">
-              <button className="flex items-center gap-2 font-['Roboto_Mono'] text-[12px] tracking-[1px] uppercase text-[#A0A0A0] hover:text-[#1A1A1A] hover:gap-3 transition-all duration-200">
-                <ChevronLeft size={14} /> Previous
-              </button>
-              <button className="flex items-center gap-2 font-['Roboto_Mono'] text-[12px] tracking-[1px] uppercase text-[#A0A0A0] hover:text-[#1A1A1A] hover:gap-3 transition-all duration-200">
-                Next <ChevronRight size={14} />
-              </button>
+              <Link href={`/work/${prevId}`}>
+                <a className="flex items-center gap-2 font-['Roboto_Mono'] text-[12px] tracking-[1px] uppercase text-[#A0A0A0] hover:text-[#1A1A1A] hover:gap-3 transition-all duration-200 cursor-pointer">
+                  <ChevronLeft size={14} /> Previous
+                </a>
+              </Link>
+              <Link href={`/work/${nextId}`}>
+                <a className="flex items-center gap-2 font-['Roboto_Mono'] text-[12px] tracking-[1px] uppercase text-[#A0A0A0] hover:text-[#1A1A1A] hover:gap-3 transition-all duration-200 cursor-pointer">
+                  Next <ChevronRight size={14} />
+                </a>
+              </Link>
             </div>
           </FadeIn>
         </div>
