@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, ChevronDown, Download, Check } from "lucide-react";
+import { Plus, ChevronDown, Download, Check, X } from "lucide-react";
 import { IMAGES } from "@/lib/constants";
 import { FadeIn } from "@/components/FadeIn";
 import { AnimatedSignature } from "@/components/AnimatedSignature";
@@ -78,9 +78,18 @@ const CUSTOM_CV = [
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
   const [openCVSections, setOpenCVSections] = useState<string[]>([]);
+  const [activeModal, setActiveModal] = useState<string | null>(null);
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setActiveModal(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => setLoaded(true), 200);
@@ -246,25 +255,27 @@ export default function Home() {
       <section id="works" className="bg-[#F5F0EB]">
         <div className="grid grid-cols-1 md:grid-cols-2">
           {CATEGORIES.map((cat) => (
-            <Link key={cat.slug} href={`/work/${cat.slug}`}>
-              <div className="group relative w-full h-[50vh] md:h-[70vh] cursor-pointer overflow-hidden bg-[#1A1A1A]">
-                <img
-                  src={cat.img}
-                  alt={cat.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03] opacity-90 group-hover:opacity-100"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/90 via-[#1A1A1A]/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
-                
-                <div className="absolute bottom-8 left-8 md:bottom-12 md:left-12 flex flex-col gap-2">
-                  <span className="font-['Roboto_Mono'] text-[11px] tracking-[3px] font-bold text-[#B7410E]">
-                    {cat.series}
-                  </span>
-                  <h2 className="font-['Work_Sans'] text-[32px] md:text-[42px] text-[#F5F0EB] tracking-wide font-light">
-                    {cat.title}
-                  </h2>
-                </div>
+            <div 
+              key={cat.slug} 
+              onClick={() => setActiveModal(cat.title)}
+              className="group relative w-full h-[50vh] md:h-[70vh] cursor-pointer overflow-hidden bg-[#1A1A1A]"
+            >
+              <img
+                src={cat.img}
+                alt={cat.title}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03] opacity-90 group-hover:opacity-100"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/90 via-[#1A1A1A]/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              <div className="absolute bottom-8 left-8 md:bottom-12 md:left-12 flex flex-col gap-2">
+                <span className="font-['Roboto_Mono'] text-[11px] tracking-[3px] font-bold text-[#B7410E]">
+                  {cat.series}
+                </span>
+                <h2 className="font-['Work_Sans'] text-[32px] md:text-[42px] text-[#F5F0EB] tracking-wide font-light">
+                  {cat.title}
+                </h2>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </section>
@@ -442,6 +453,58 @@ export default function Home() {
           </FadeIn>
         </div>
       </section>
+
+      {/* ============ CATEGORY MODAL ============ */}
+      <AnimatePresence>
+        {activeModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8 bg-black/80 backdrop-blur-sm"
+            onClick={() => setActiveModal(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="bg-[#F5F0EB] w-full max-w-4xl max-h-[85vh] overflow-y-auto border-4 border-[#B7410E] relative shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="sticky top-0 bg-[#F5F0EB] border-b border-[#D4D0CB] px-8 py-6 flex justify-between items-center z-10">
+                <h3 className="font-['Roboto_Mono'] text-[24px] tracking-[2px] uppercase text-[#1A1A1A]">
+                  {activeModal}
+                </h3>
+                <button 
+                  onClick={() => setActiveModal(null)}
+                  className="text-[#1A1A1A] hover:text-[#B7410E] transition-colors p-2"
+                >
+                  <X size={28} />
+                </button>
+              </div>
+              
+              <div className="p-8 space-y-4">
+                {activeModal === "Repurposed Glass" ? (
+                  <p className="font-['Work_Sans'] text-[16px] text-[#1A1A1A] italic">
+                    Recent works focusing on the intersection of light, texture, and repurposed industrial materials.
+                  </p>
+                ) : (
+                  CUSTOM_CV.find(section => section.category === activeModal)?.entries.map((entry, idx) => (
+                    <div key={idx} className="font-['Work_Sans'] text-[16px] text-[#1A1A1A] pb-4 border-b border-[#E8E4DF] last:border-0 last:pb-0">
+                      {entry}
+                    </div>
+                  )) || (
+                    <p className="font-['Work_Sans'] text-[16px] text-[#1A1A1A] italic">
+                      Details coming soon.
+                    </p>
+                  )
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <Footer />
     </div>
