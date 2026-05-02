@@ -72,6 +72,19 @@ const CUSTOM_CV = [
   }
 ];
 
+const BROAD_STROKES_GALLERY = [
+  "https://images.squarespace-cdn.com/content/v1/63bc4cd3254b492a58259fd6/1674235080928-2XIGWH4MMFBBPRXJ4340/Broad+Strokes+on+Broad+Street+1.jpg",
+  "https://images.squarespace-cdn.com/content/v1/63bc4cd3254b492a58259fd6/1674235089505-XTFFJS0KHJJ0JHEYJFLB/Broad+Strokes+on+Broad+Street+QR+codes1.jpg",
+  "https://images.squarespace-cdn.com/content/v1/63bc4cd3254b492a58259fd6/1674235090302-ER5UPIGMSUPND1Y3LSTM/Broad+Strokes+on+Broad+Street+QR+codes2.jpg",
+  "https://images.squarespace-cdn.com/content/v1/63bc4cd3254b492a58259fd6/1674235090692-L9K02RG2GTO76MNGAT2U/broad+strokes+on+broad+street2.jpg",
+  "https://images.squarespace-cdn.com/content/v1/63bc4cd3254b492a58259fd6/1674235099768-AHTEGZAKQX7QD4BRSLKR/Broad+Strokes+on+Broad+Street3.jpg",
+  "https://images.squarespace-cdn.com/content/v1/63bc4cd3254b492a58259fd6/1674235100083-7LIRDPVPFGB33LH6FKLQ/Broad+Strokes+on+Broad+Street4.jpg",
+  "https://images.squarespace-cdn.com/content/v1/63bc4cd3254b492a58259fd6/1674235107838-NTA4WB979KDEX6GJ034E/Broad+Strokes+on+Broad+Street4%281%29.jpg",
+  "https://images.squarespace-cdn.com/content/v1/63bc4cd3254b492a58259fd6/1674235112396-APDE75MSBJ7NRY12EN7Q/IMG_2869.jpg",
+  "https://images.squarespace-cdn.com/content/v1/63bc4cd3254b492a58259fd6/1674235108790-RF18ZH33N76OXIRCUUDZ/jose1.jpg",
+  "https://images.squarespace-cdn.com/content/v1/63bc4cd3254b492a58259fd6/1674235107566-TC2DPZ7JJW35ZUSUFPT0/IMG_1877.jpg",
+];
+
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
   const [openCVSections, setOpenCVSections] = useState<string[]>([]);
@@ -383,8 +396,17 @@ export default function Home() {
               </div>
             </FadeIn>
             <FadeIn>
-              <div className="relative aspect-square bg-[#E8E4DF]">
-                <img src={IMAGES.broadStrokes} alt="Broad Strokes on Broad Street" className="w-full h-full object-cover" />
+              <div className="columns-2 gap-4 space-y-4">
+                {BROAD_STROKES_GALLERY.map((imgUrl, i) => (
+                  <div key={i} className="break-inside-avoid relative overflow-hidden bg-[#E8E4DF]">
+                    <img 
+                      src={imgUrl} 
+                      alt={`Broad Strokes ${i}`} 
+                      className="w-full h-auto object-cover hover:scale-105 transition-transform duration-700" 
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
               </div>
             </FadeIn>
           </div>
