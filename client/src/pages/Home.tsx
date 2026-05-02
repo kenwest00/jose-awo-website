@@ -19,9 +19,6 @@ const ALL_WORKS = [
   { id: "fractured-light", img: IMAGES.art1, title: "Fractured Light", year: "2023" },
   { id: "urban-reflection", img: IMAGES.art2, title: "Urban Reflection", year: "2022" },
   { id: "glass-cathedral", img: IMAGES.art3, title: "Glass Cathedral", year: "2023" },
-  { id: "auburn-avenue", img: IMAGES.auburnAvenue, title: "Auburn Avenue", year: "2022" },
-  { id: "southside-medical", img: IMAGES.southsideMedical, title: "Southside Medical", year: "2015" },
-  { id: "broad-strokes", img: IMAGES.broadStrokes, title: "Broad Strokes on Broad Street", year: "2021" },
   { id: "material-memory", img: IMAGES.art4, title: "Material Memory", year: "2021" },
   { id: "amber-prism", img: IMAGES.glassTexture, title: "Amber Prism", year: "2024" },
 ];
@@ -288,7 +285,7 @@ export default function Home() {
               Selected Works
             </h3>
             <span className="font-['Work_Sans'] italic text-[15px] text-[#A0A0A0]">
-              Eight works — drag to explore
+              Pieces available for collection — drag to explore
             </span>
           </div>
         </FadeIn>
