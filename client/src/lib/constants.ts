@@ -1,7 +1,7 @@
 export const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310419663032373885/PUxVj88aG3TdKTkiHjSYV6";
 
 export const IMAGES = {
-  studioHero: "/new-hero.jpg",
+  studioHero: "/new-hero-v2.png",
   artist: `${CDN}/artist_2897ec9e.jpg`,
   art1: `${CDN}/art1_faa9735a.jpg`,
   art2: `${CDN}/art2_7e31ecfe.jpg`,
