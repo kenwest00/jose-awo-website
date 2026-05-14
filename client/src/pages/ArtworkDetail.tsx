@@ -10,7 +10,7 @@ import { Footer } from "@/components/Footer";
 const ARTWORKS: Record<string, any> = {
   "butts-county": {
     title: "Butt's County Medical Center",
-    img: "/works/butts-county.jpg",
+    img: "/works/butts-county.webp",
     year: "2018",
     medium: "Flovilla mix Media Collage, oil & acrylic watercolors",
     dimensions: "13' x 4'",
@@ -20,7 +20,7 @@ const ARTWORKS: Record<string, any> = {
   },
   "red-sublime": {
     title: "Red Sublime",
-    img: "/works/red-sublime.png",
+    img: "/works/red-sublime.webp",
     year: "2014",
     medium: "Oil & Acrylic on Canvas, Epoxy resin",
     dimensions: "5' x 5'",
@@ -30,7 +30,7 @@ const ARTWORKS: Record<string, any> = {
   },
   "wedding-party": {
     title: "The wedding party",
-    img: "/works/wedding-party.jpg",
+    img: "/works/wedding-party.webp",
     year: "2016",
     medium: "Oil in acrylic on canvas",
     dimensions: "12' x 4'",
@@ -40,7 +40,7 @@ const ARTWORKS: Record<string, any> = {
   },
   "sweet-auburn": {
     title: "Sweet auburn",
-    img: "/works/sweet-auburn.png",
+    img: "/works/sweet-auburn.webp",
     year: "2024",
     medium: "Oil pastel on paper",
     dimensions: "6' x 4'",
@@ -50,7 +50,7 @@ const ARTWORKS: Record<string, any> = {
   },
   "changed-of-mind": {
     title: "Changed of Mind",
-    img: "/works/changed-of-mind.jpg",
+    img: "/works/changed-of-mind.webp",
     year: "2010",
     medium: "Oil and acrylic on industrial glass",
     dimensions: "10' x 4'",

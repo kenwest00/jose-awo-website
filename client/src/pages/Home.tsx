@@ -16,11 +16,11 @@ const CATEGORIES = [
 ];
 
 const ALL_WORKS = [
-  { id: "butts-county", img: "/works/butts-county.jpg", title: "Butt's County Medical Center", year: "2018" },
-  { id: "red-sublime", img: "/works/red-sublime.png", title: "Red Sublime", year: "2014" },
-  { id: "wedding-party", img: "/works/wedding-party.jpg", title: "The wedding party", year: "2016" },
-  { id: "sweet-auburn", img: "/works/sweet-auburn.png", title: "Sweet auburn", year: "2024" },
-  { id: "changed-of-mind", img: "/works/changed-of-mind.jpg", title: "Changed of Mind", year: "2010" },
+  { id: "butts-county", img: "/works/butts-county.webp", title: "Butt's County Medical Center", year: "2018" },
+  { id: "red-sublime", img: "/works/red-sublime.webp", title: "Red Sublime", year: "2014" },
+  { id: "wedding-party", img: "/works/wedding-party.webp", title: "The wedding party", year: "2016" },
+  { id: "sweet-auburn", img: "/works/sweet-auburn.webp", title: "Sweet auburn", year: "2024" },
+  { id: "changed-of-mind", img: "/works/changed-of-mind.webp", title: "Changed of Mind", year: "2010" },
 ];
 
 const CUSTOM_CV = [
