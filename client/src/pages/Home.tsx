@@ -579,7 +579,7 @@ export default function Home() {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 20, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-[#F5F0EB] w-full max-w-6xl max-h-[90vh] overflow-y-auto relative flex flex-col lg:flex-row shadow-2xl"
+              className="bg-[#F5F0EB] w-full max-w-6xl max-h-[90vh] overflow-y-auto relative block lg:flex shadow-2xl"
             >
               <button 
                 onClick={() => setSelectedArtwork(null)}
@@ -588,15 +588,15 @@ export default function Home() {
                 <X size={20} />
               </button>
 
-              <div className="lg:w-[60%] bg-[#E8E4DF] p-8 flex items-center justify-center min-h-[50vh] lg:min-h-[80vh]">
+              <div className="lg:w-[60%] bg-[#E8E4DF] p-8 py-12 flex items-center justify-center min-h-[40vh] lg:min-h-[80vh]">
                 <img
                   src={selectedArtwork.img}
                   alt={selectedArtwork.title}
-                  className="max-h-[70vh] w-auto object-contain shadow-lg"
+                  className="max-h-[40vh] lg:max-h-[70vh] w-auto object-contain shadow-lg"
                 />
               </div>
 
-              <div className="lg:w-[40%] p-8 lg:p-12 flex flex-col justify-center">
+              <div className="lg:w-[40%] p-8 pb-16 lg:p-12 flex flex-col justify-center">
                 <h2 className="font-['Space_Grotesk'] text-[28px] font-medium tracking-[1px] uppercase mb-8 text-[#1A1A1A]">
                   {selectedArtwork.title}
                 </h2>
