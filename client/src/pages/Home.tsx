@@ -111,6 +111,11 @@ export default function Home() {
   const ySplat4 = useTransform(scrollY, [0, 1000], [0, 150]);
   const ySplat5 = useTransform(scrollY, [0, 1000], [0, -400]);
 
+  // Parallax layers for Selected Works splatters
+  const yWorksSplat1 = useTransform(scrollY, [1000, 3000], [200, -200]);
+  const yWorksSplat2 = useTransform(scrollY, [1000, 3000], [-150, 250]);
+  const yWorksSplat3 = useTransform(scrollY, [1000, 3000], [100, -300]);
+
   const [loaded, setLoaded] = useState(false);
   const [openCVSections, setOpenCVSections] = useState<string[]>([]);
   const [activeModal, setActiveModal] = useState<string | null>(null);
@@ -312,7 +317,19 @@ export default function Home() {
 
       {/* ============ SELECTED WORKS GALLERY (Dark) ============ */}
       <section id="works" className="bg-[#1A1A1A] py-32 px-8 relative overflow-hidden">
-        <FadeIn>
+        
+        {/* Parallax Splatters for Works */}
+        <motion.div style={{ y: yWorksSplat1 }} className="absolute z-0 top-[10%] left-[5%] w-40 md:w-56 text-[#B7410E] pointer-events-none opacity-20 drop-shadow-xl">
+          <SpeckleSVG type={1} />
+        </motion.div>
+        <motion.div style={{ y: yWorksSplat2 }} className="absolute z-0 top-[40%] right-[10%] w-48 md:w-64 text-[#D4A843] pointer-events-none opacity-[0.15] drop-shadow-xl">
+          <SpeckleSVG type={2} />
+        </motion.div>
+        <motion.div style={{ y: yWorksSplat3 }} className="absolute z-0 bottom-[10%] left-[20%] w-32 md:w-48 text-[#B7410E] pointer-events-none opacity-20 drop-shadow-xl">
+          <SpeckleSVG type={3} />
+        </motion.div>
+
+        <FadeIn className="relative z-10">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 gap-4">
             <h3 className="font-['Space_Grotesk'] text-[14px] font-bold tracking-[3px] uppercase text-[#F5F0EB]">
               Selected Works
@@ -323,7 +340,7 @@ export default function Home() {
           </div>
         </FadeIn>
 
-        <div className="overflow-x-auto pb-12 -mx-8 px-8 scrollbar-hide cursor-grab active:cursor-grabbing">
+        <div className="relative z-10 overflow-x-auto pb-12 -mx-8 px-8 scrollbar-hide cursor-grab active:cursor-grabbing">
           <div className="flex gap-8 w-max">
             {ALL_WORKS.map((item, i) => (
               <FadeIn key={item.id} delay={i * 0.1}>
