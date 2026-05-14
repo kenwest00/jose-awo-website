@@ -85,11 +85,51 @@ const BROAD_STROKES_GALLERY = [
   "https://images.squarespace-cdn.com/content/v1/63bc4cd3254b492a58259fd6/1674235107566-TC2DPZ7JJW35ZUSUFPT0/IMG_1877.jpg",
 ];
 
+
+const SplatterSVG = ({ type, className }: { type: number, className?: string }) => {
+  return (
+    <svg viewBox="0 0 200 200" className={className} fill="currentColor" opacity="0.85">
+      {type === 1 && (
+        <g>
+          <path d="M100 50 C 120 40, 150 70, 130 100 C 140 130, 110 150, 90 130 C 60 140, 50 110, 70 90 C 50 70, 80 40, 100 50 Z" />
+          <circle cx="40" cy="60" r="8" /> <circle cx="160" cy="80" r="5" />
+          <circle cx="140" cy="150" r="12" /> <circle cx="50" cy="140" r="6" />
+          <circle cx="100" cy="20" r="7" /> <circle cx="180" cy="110" r="4" />
+        </g>
+      )}
+      {type === 2 && (
+        <g>
+          <path d="M80 60 C 110 50, 130 80, 110 110 C 120 140, 90 160, 70 140 C 40 150, 30 120, 50 100 C 30 80, 60 50, 80 60 Z" />
+          <path d="M140 50 C 160 40, 170 70, 150 80 C 130 90, 120 60, 140 50 Z" />
+          <circle cx="30" cy="50" r="10" /> <circle cx="150" cy="130" r="7" />
+          <circle cx="80" cy="180" r="6" /> <circle cx="180" cy="60" r="4" />
+        </g>
+      )}
+      {type === 3 && (
+        <g>
+          <path d="M110 70 C 140 60, 160 90, 140 120 C 150 150, 120 170, 100 150 C 70 160, 60 130, 80 110 C 60 90, 90 60, 110 70 Z" />
+          <circle cx="50" cy="70" r="5" /> <circle cx="170" cy="100" r="8" />
+          <circle cx="130" cy="180" r="10" /> <circle cx="40" cy="130" r="6" />
+          <circle cx="90" cy="30" r="7" /> <circle cx="190" cy="140" r="5" />
+        </g>
+      )}
+    </svg>
+  );
+};
+
 export default function Home() {
+
   const { scrollY } = useScroll();
   const yHero = useTransform(scrollY, [0, 1000], [0, 400]);
   const yText = useTransform(scrollY, [0, 1000], [0, 200]);
   const opacityHero = useTransform(scrollY, [0, 800], [1, 0]);
+  
+  // Parallax layers for splatters
+  const ySplat1 = useTransform(scrollY, [0, 1000], [0, -250]);
+  const ySplat2 = useTransform(scrollY, [0, 1000], [0, -100]);
+  const ySplat3 = useTransform(scrollY, [0, 1000], [0, 300]);
+  const ySplat4 = useTransform(scrollY, [0, 1000], [0, 150]);
+  const ySplat5 = useTransform(scrollY, [0, 1000], [0, -400]);
 
   const [loaded, setLoaded] = useState(false);
   const [openCVSections, setOpenCVSections] = useState<string[]>([]);
@@ -159,6 +199,24 @@ export default function Home() {
           />
           <div className="absolute inset-0 bg-[#1A1A1A]/40" />
           </motion.div>
+        </motion.div>
+
+
+        {/* Parallax Splatters */}
+        <motion.div style={{ y: ySplat1, opacity: opacityHero }} className="absolute z-0 top-[15%] left-[10%] w-32 md:w-48 text-[#B7410E] pointer-events-none opacity-80 drop-shadow-2xl">
+          <SplatterSVG type={1} />
+        </motion.div>
+        <motion.div style={{ y: ySplat2, opacity: opacityHero }} className="absolute z-0 top-[60%] right-[15%] w-40 md:w-64 text-[#D4A843] pointer-events-none opacity-70 drop-shadow-2xl">
+          <SplatterSVG type={2} />
+        </motion.div>
+        <motion.div style={{ y: ySplat3, opacity: opacityHero }} className="absolute z-0 top-[25%] right-[25%] w-24 md:w-32 text-[#F5F0EB] pointer-events-none opacity-60 drop-shadow-2xl mix-blend-overlay">
+          <SplatterSVG type={3} />
+        </motion.div>
+        <motion.div style={{ y: ySplat4, opacity: opacityHero }} className="absolute z-0 bottom-[20%] left-[20%] w-28 md:w-40 text-[#B7410E] pointer-events-none opacity-80 drop-shadow-2xl">
+          <SplatterSVG type={2} />
+        </motion.div>
+        <motion.div style={{ y: ySplat5, opacity: opacityHero }} className="absolute z-0 top-[40%] left-[45%] w-16 md:w-24 text-[#D4A843] pointer-events-none opacity-90 drop-shadow-2xl">
+          <SplatterSVG type={1} />
         </motion.div>
 
         <motion.div style={{ y: yText, opacity: opacityHero }} className="relative z-10 flex flex-col items-center px-8 w-full">
