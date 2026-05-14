@@ -16,11 +16,11 @@ const CATEGORIES = [
 ];
 
 const ALL_WORKS = [
-  { id: "butts-county", img: "/works/butts-county.webp", title: "Butt's County Medical Center", year: "2018", medium: "Flovilla mix Media Collage, oil & acrylic watercolors", dimensions: "13' x 4'", series: "SMC - Commissioned work", status: "COMMISSIONED", note: '"Commissioned work"' },
-  { id: "red-sublime", img: "/works/red-sublime.webp", title: "Red Sublime", year: "2014", medium: "Oil & Acrylic on Canvas, Epoxy resin", dimensions: "5' x 5'", series: "Originals", status: "AVAILABLE", note: "" },
-  { id: "wedding-party", img: "/works/wedding-party.webp", title: "The wedding party", year: "2016", medium: "Oil in acrylic on canvas", dimensions: "12' x 4'", series: "Originals", status: "AVAILABLE", note: "" },
-  { id: "sweet-auburn", img: "/works/sweet-auburn.webp", title: "Sweet auburn", year: "2024", medium: "Oil pastel on paper", dimensions: "6' x 4'", series: "Originals", status: "AVAILABLE", note: '"Featured in ArtsATL"' },
-  { id: "changed-of-mind", img: "/works/changed-of-mind.webp", title: "Changed of Mind", year: "2010", medium: "Oil and acrylic on industrial glass", dimensions: "10' x 4'", series: "Originals", status: "AVAILABLE", note: "" },
+  { id: "butts-county", img: "/works/butts-county.webp", title: "Butt's County Medical Center", year: "2018", medium: "Flovilla mix media collage, oil & acrylic watercolors", dimensions: "13' x 4'", series: "SMC - commissioned work", status: "Commissioned", note: '"Commissioned work"' },
+  { id: "red-sublime", img: "/works/red-sublime.webp", title: "Red Sublime", year: "2014", medium: "Oil & acrylic on canvas, epoxy resin", dimensions: "5' x 5'", series: "Originals", status: "Available", note: "" },
+  { id: "wedding-party", img: "/works/wedding-party.webp", title: "The wedding party", year: "2016", medium: "Oil in acrylic on canvas", dimensions: "12' x 4'", series: "Originals", status: "Available", note: "" },
+  { id: "sweet-auburn", img: "/works/sweet-auburn.webp", title: "Sweet auburn", year: "2024", medium: "Oil pastel on paper", dimensions: "6' x 4'", series: "Originals", status: "Available", note: '"Featured in ArtsATL"' },
+  { id: "changed-of-mind", img: "/works/changed-of-mind.webp", title: "Changed of Mind", year: "2010", medium: "Oil and acrylic on industrial glass", dimensions: "10' x 4'", series: "Originals", status: "Available", note: "" },
 ];
 
 const CUSTOM_CV = [
@@ -613,7 +613,7 @@ export default function Home() {
                       <span className="font-['Work_Sans'] text-[13px] text-[#A0A0A0] tracking-[0.5px]">
                         {field.label}
                       </span>
-                      <span className={`${field.mono ? "font-['Space_Grotesk'] text-[13px] uppercase tracking-[1px]" : "font-['Work_Sans'] text-[15px]"} ${field.color}`}>
+                      <span className={`${field.mono ? "font-['Space_Grotesk'] text-[13px] tracking-[1px]" : "font-['Work_Sans'] text-[15px]"} ${field.color}`}>
                         {field.value}
                       </span>
                     </div>
