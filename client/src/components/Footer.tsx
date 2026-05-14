@@ -5,9 +5,9 @@ export function Footer() {
         <span className="font-['Space_Grotesk'] text-[11px] tracking-[2px] uppercase text-[#A0A0A0]">
           © 2026 José Awo Art
         </span>
-        <span className="font-['Space_Grotesk'] text-[10px] tracking-[2px] uppercase text-[#A0A0A0]">
-          The Digital Studio
-        </span>
+        <a href="https://abiknows.com" target="_blank" rel="noopener noreferrer" className="font-['Space_Grotesk'] text-[10px] tracking-[2px] uppercase text-red-600 hover:text-red-800 transition-colors">
+          ABI CREATIVE
+        </a>
       </div>
     </footer>
   );
