@@ -336,11 +336,6 @@ export default function Home() {
                         className="w-full h-full object-contain transition-all duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100 grayscale-[0.2] group-hover:grayscale-0 p-4"
                       />
                       <div className="absolute inset-0 border border-[#B7410E] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div className="w-12 h-12 rounded-full border-2 border-[#B7410E] flex items-center justify-center bg-black/40 backdrop-blur-sm">
-                          <Plus size={20} className="text-[#B7410E]" />
-                        </div>
-                      </div>
                     </div>
                     <div className="flex justify-between items-start border-t border-[#333] pt-4">
                       <h4 className="font-['Work_Sans'] text-[16px] text-[#F5F0EB] group-hover:text-[#B7410E] transition-colors duration-300">
