@@ -170,7 +170,7 @@ export default function Home() {
             transition={{ delay: 1.2, duration: 0.8 }}
             className="font-['Work_Sans'] text-[15px] tracking-[4px] text-[#F5F0EB]/80 uppercase text-center"
           >
-            Art Through Glass
+            ART IN REFLECTION
           </motion.p>
         </div>
       </section>
