@@ -227,6 +227,9 @@ export default function Home() {
             ART IN REFLECTION
           </motion.p>
         </motion.div>
+
+        {/* Gradient Transition to Bio Section */}
+        <div className="absolute bottom-0 left-0 w-full h-48 md:h-64 bg-gradient-to-t from-[#F5F0EB] via-[#F5F0EB]/60 to-transparent z-10 pointer-events-none" />
       </section>
 
       {/* ============ BIO SECTION (Light) ============ */}
