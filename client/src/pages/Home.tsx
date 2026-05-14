@@ -246,7 +246,7 @@ export default function Home() {
                 </p>
                 
                 <div className="pt-8">
-                  <a href="/s/jose-art-resume.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 group border-2 border-[#1A1A1A] px-6 py-3 relative overflow-hidden transition-colors duration-300">
+                  <a href="/Jose_Awo_Artist_CV_Art_In_Reflection.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 group border-2 border-[#1A1A1A] px-6 py-3 relative overflow-hidden transition-colors duration-300">
                     <span className="absolute inset-0 bg-[#B7410E] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
                     <span className="relative flex items-center gap-2 font-['Space_Grotesk'] text-[12px] tracking-[1.5px] uppercase text-[#1A1A1A] group-hover:text-white transition-colors duration-300">
                       <Download size={14} /> Download Resume
