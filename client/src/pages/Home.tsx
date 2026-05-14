@@ -229,7 +229,7 @@ export default function Home() {
         </motion.div>
 
         {/* Gradient Transition to Bio Section */}
-        <div className="absolute bottom-0 left-0 w-full h-10 md:h-16 bg-gradient-to-t from-[#F5F0EB] via-[#F5F0EB]/60 to-transparent z-10 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-full h-4 md:h-8 bg-gradient-to-t from-[#F5F0EB] via-[#F5F0EB]/90 to-transparent z-10 pointer-events-none" />
       </section>
 
       {/* ============ BIO SECTION (Light) ============ */}
