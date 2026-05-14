@@ -397,7 +397,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <FadeIn>
             <div className="relative aspect-[4/3] bg-[#2A2A2A]">
-              <img src={IMAGES.art2} alt="Johnny Gant Recognition" className="w-full h-full object-cover opacity-80" />
+              <img src="/works/johnny-gant-event.jpg" alt="Johnny Gant Recognition" className="w-full h-full object-cover opacity-80" />
             </div>
           </FadeIn>
           <FadeIn>
