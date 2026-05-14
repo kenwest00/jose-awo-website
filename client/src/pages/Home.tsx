@@ -261,37 +261,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ============ WORKS SECTION (Dark Grid) ============ */}
-      <section id="works" className="bg-[#F5F0EB]">
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          {CATEGORIES.map((cat) => (
-            <div 
-              key={cat.slug} 
-              onClick={() => setActiveModal(cat.title)}
-              className="group relative w-full h-[50vh] md:h-[70vh] cursor-pointer overflow-hidden bg-[#1A1A1A]"
-            >
-              <img
-                src={cat.img}
-                alt={cat.title}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03] opacity-90 group-hover:opacity-100"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/90 via-[#1A1A1A]/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
-              
-              <div className="absolute bottom-8 left-8 md:bottom-12 md:left-12 flex flex-col gap-2">
-                <span className="font-['Space_Grotesk'] text-[11px] tracking-[3px] font-bold text-[#B7410E]">
-                  {cat.series}
-                </span>
-                <h2 className="font-['Work_Sans'] text-[32px] md:text-[42px] text-[#F5F0EB] tracking-wide font-light">
-                  {cat.title}
-                </h2>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* ============ SELECTED WORKS GALLERY (Dark) ============ */}
-      <section className="bg-[#1A1A1A] py-32 px-8 relative overflow-hidden">
+      <section id="works" className="bg-[#1A1A1A] py-32 px-8 relative overflow-hidden">
         <FadeIn>
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 gap-4">
             <h3 className="font-['Space_Grotesk'] text-[14px] font-bold tracking-[3px] uppercase text-[#F5F0EB]">
