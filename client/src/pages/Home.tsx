@@ -16,11 +16,11 @@ const CATEGORIES = [
 ];
 
 const ALL_WORKS = [
-  { id: "fractured-light", img: IMAGES.art1, title: "Fractured Light", year: "2023" },
-  { id: "urban-reflection", img: IMAGES.art2, title: "Urban Reflection", year: "2022" },
-  { id: "glass-cathedral", img: IMAGES.art3, title: "Glass Cathedral", year: "2023" },
-  { id: "material-memory", img: IMAGES.art4, title: "Material Memory", year: "2021" },
-  { id: "amber-prism", img: IMAGES.glassTexture, title: "Amber Prism", year: "2024" },
+  { id: "butts-county", img: "/works/butts-county.jpg", title: "Butt's County Medical Center", year: "2018" },
+  { id: "red-sublime", img: "/works/red-sublime.png", title: "Red Sublime", year: "2014" },
+  { id: "wedding-party", img: "/works/wedding-party.jpg", title: "The wedding party", year: "2016" },
+  { id: "sweet-auburn", img: "/works/sweet-auburn.png", title: "Sweet auburn", year: "2024" },
+  { id: "changed-of-mind", img: "/works/changed-of-mind.jpg", title: "Changed of Mind", year: "2010" },
 ];
 
 const CUSTOM_CV = [

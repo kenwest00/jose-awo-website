@@ -8,62 +8,62 @@ import { Footer } from "@/components/Footer";
 
 // Dummy data map for artworks
 const ARTWORKS: Record<string, any> = {
-  "fractured-light": {
-    title: "Fractured Light",
-    img: IMAGES.art1,
-    year: "2023",
-    medium: "Industrial glass, acrylic, mixed media",
-    dimensions: "48 × 36 inches",
-    series: "Repurposed Glass",
+  "butts-county": {
+    title: "Butt's County Medical Center",
+    img: "/works/butts-county.jpg",
+    year: "2018",
+    medium: "Flovilla mix Media Collage, oil & acrylic watercolors",
+    dimensions: "13' x 4'",
+    series: "SMC - Commissioned work",
+    status: "COMMISSIONED",
+    note: '"Commissioned work"'
+  },
+  "red-sublime": {
+    title: "Red Sublime",
+    img: "/works/red-sublime.png",
+    year: "2014",
+    medium: "Oil & Acrylic on Canvas, Epoxy resin",
+    dimensions: "5' x 5'",
+    series: "Originals",
     status: "AVAILABLE",
-    note: '"This piece explores the tension between fragility and strength — industrial glass, once discarded, is given new purpose through layers of acrylic and light."'
+    note: ""
   },
-  "urban-reflection": {
-    title: "Urban Reflection",
-    img: IMAGES.art2,
-    year: "2022",
-    medium: "Mixed media, concrete, glass",
-    dimensions: "36 × 36 inches",
-    series: "Cityscapes",
-    status: "SOLD",
-    note: '"Reflections of the city cast upon broken surfaces."'
-  },
-  "glass-cathedral": {
-    title: "Glass Cathedral",
-    img: IMAGES.art3,
-    year: "2023",
-    medium: "Shattered glass on canvas",
-    dimensions: "60 × 48 inches",
-    series: "Repurposed Glass",
+  "wedding-party": {
+    title: "The wedding party",
+    img: "/works/wedding-party.jpg",
+    year: "2016",
+    medium: "Oil in acrylic on canvas",
+    dimensions: "12' x 4'",
+    series: "Originals",
     status: "AVAILABLE",
-    note: '"A towering monolithic presence shaped by light."'
+    note: ""
   },
-  "material-memory": {
-    title: "Material Memory",
-    img: IMAGES.art4,
-    year: "2021",
-    medium: "Scrap metal, found objects",
-    dimensions: "24 × 24 inches",
-    series: "Salvage",
-    status: "AVAILABLE",
-    note: '"Remembering what was here before the development."'
-  },
-  "amber-prism": {
-    title: "Amber Prism",
-    img: IMAGES.glassTexture,
+  "sweet-auburn": {
+    title: "Sweet auburn",
+    img: "/works/sweet-auburn.png",
     year: "2024",
-    medium: "Glass texture, resin, light box",
-    dimensions: "40 × 40 inches",
-    series: "Prisms",
+    medium: "Oil pastel on paper",
+    dimensions: "6' x 4'",
+    series: "Originals",
     status: "AVAILABLE",
-    note: '"Trapping light in amber."'
+    note: '"https://www.artsatl.org/what-to-see-do-and-hear-atlanta-stories-a-nest-of-jazz-trans-cinema-more/"'
+  },
+  "changed-of-mind": {
+    title: "Changed of Mind",
+    img: "/works/changed-of-mind.jpg",
+    year: "2010",
+    medium: "Oil and acrylic on industrial glass",
+    dimensions: "10' x 4'",
+    series: "Originals",
+    status: "AVAILABLE",
+    note: ""
   }
 };
 
 export default function ArtworkDetail() {
   const { id } = useParams();
-  const currentId = id || "fractured-light";
-  const artwork = ARTWORKS[currentId] || ARTWORKS["fractured-light"];
+  const currentId = id || "butts-county";
+  const artwork = ARTWORKS[currentId] || ARTWORKS["butts-county"];
   
   const keys = Object.keys(ARTWORKS);
   const currentIndex = keys.indexOf(currentId) !== -1 ? keys.indexOf(currentId) : 0;
