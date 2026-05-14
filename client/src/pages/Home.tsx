@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Plus, ChevronDown, Download, Check, X } from "lucide-react";
 import { IMAGES } from "@/lib/constants";
 import { FadeIn } from "@/components/FadeIn";
@@ -86,6 +86,11 @@ const BROAD_STROKES_GALLERY = [
 ];
 
 export default function Home() {
+  const { scrollY } = useScroll();
+  const yHero = useTransform(scrollY, [0, 1000], [0, 400]);
+  const yText = useTransform(scrollY, [0, 1000], [0, 200]);
+  const opacityHero = useTransform(scrollY, [0, 800], [1, 0]);
+
   const [loaded, setLoaded] = useState(false);
   const [openCVSections, setOpenCVSections] = useState<string[]>([]);
   const [activeModal, setActiveModal] = useState<string | null>(null);
@@ -139,22 +144,24 @@ export default function Home() {
       <Navigation />
 
       {/* ============ HERO SECTION ============ */}
-      <section id="home" className="relative h-screen flex flex-col justify-center items-center">
-        <motion.div 
-          initial={{ scale: 1.05, opacity: 0 }}
-          animate={loaded ? { scale: 1, opacity: 1 } : {}}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-          className="absolute inset-0 z-0"
-        >
+      <section id="home" className="relative h-screen flex flex-col justify-center items-center overflow-hidden bg-[#1A1A1A]">
+        <motion.div style={{ y: yHero, opacity: opacityHero }} className="absolute inset-0 z-0">
+          <motion.div 
+            initial={{ scale: 1.05, opacity: 0 }}
+            animate={loaded ? { scale: 1, opacity: 1 } : {}}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+            className="w-full h-full"
+          >
           <img 
             src={IMAGES.studioHero} 
             alt="José Awo Studio" 
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-[#1A1A1A]/40" />
+          </motion.div>
         </motion.div>
 
-        <div className="relative z-10 flex flex-col items-center px-8 w-full">
+        <motion.div style={{ y: yText, opacity: opacityHero }} className="relative z-10 flex flex-col items-center px-8 w-full">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={loaded ? { opacity: 1, y: 0 } : {}}
@@ -172,7 +179,7 @@ export default function Home() {
           >
             ART IN REFLECTION
           </motion.p>
-        </div>
+        </motion.div>
       </section>
 
       {/* ============ BIO SECTION (Light) ============ */}
