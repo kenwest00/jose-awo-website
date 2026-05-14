@@ -186,7 +186,10 @@ export default function Home() {
             alt="José Awo Studio" 
             className="w-full h-full object-cover"
           />
+          {/* Base darkening overlay */}
           <div className="absolute inset-0 bg-[#1A1A1A]/40" />
+          {/* Subtle vignette to separate the figure from the background */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,rgba(26,26,26,0.5)_100%)] pointer-events-none" />
           </motion.div>
         </motion.div>
 
