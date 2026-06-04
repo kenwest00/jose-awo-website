@@ -16,18 +16,18 @@ const CATEGORIES = [
 ];
 
 const ALL_WORKS = [
-  { id: "butts-county", img: "/works/butts-county.webp", title: "Butt's County Medical Center", year: "2018", medium: "Flovilla mix media collage, oil & acrylic watercolors", dimensions: "13' x 4'", series: "SMC - commissioned work", status: "Commissioned", note: '"Commissioned work"' },
+  { id: "butts-county", img: "/works/butts-county.webp", title: "Butts County Medical Center", year: "2018", medium: "Flovilla mix media collage, oil & acrylic watercolors", dimensions: "13' x 4'", series: "SMC - commissioned work", status: "Commissioned", note: '"Commissioned work"' },
   { id: "red-sublime", img: "/works/red-sublime.webp", title: "Red Sublime", year: "2014", medium: "Oil & acrylic on canvas, epoxy resin", dimensions: "5' x 5'", series: "Originals", status: "Available", note: "" },
-  { id: "wedding-party", img: "/works/wedding-party.webp", title: "The wedding party", year: "2016", medium: "Oil in acrylic on canvas", dimensions: "12' x 4'", series: "Originals", status: "Available", note: "" },
-  { id: "sweet-auburn", img: "/works/sweet-auburn.webp", title: "Sweet auburn", year: "2024", medium: "Oil pastel on paper", dimensions: "6' x 4'", series: "Originals", status: "Available", note: '"Featured in ArtsATL"' },
-  { id: "changed-of-mind", img: "/works/changed-of-mind.webp", title: "Changed of Mind", year: "2010", medium: "Oil and acrylic on industrial glass", dimensions: "10' x 4'", series: "Originals", status: "Available", note: "" },
+  { id: "wedding-party", img: "/works/wedding-party.webp", title: "The Wedding Party", year: "2016", medium: "Oil in acrylic on canvas", dimensions: "12' x 4'", series: "Originals", status: "Available", note: "" },
+  { id: "sweet-auburn", img: "/works/sweet-auburn.webp", title: "Sweet Auburn", year: "2024", medium: "Oil pastel on paper", dimensions: "6' x 4'", series: "Originals", status: "Available", note: '"Featured in ArtsATL"' },
+  { id: "changed-of-mind", img: "/works/changed-of-mind.webp", title: "Change of Mind", year: "2010", medium: "Oil and acrylic on industrial glass", dimensions: "10' x 4'", series: "Originals", status: "Available", note: "" },
 ];
 
 const CUSTOM_CV = [
   {
     category: "Fellowship/Residency",
     entries: [
-      "Georgia Institute of Technology Artist in residence: 2025 - 2026",
+      "Georgia Institute of Technology Artist in residence: 2025 - 2027",
       "ARC Culture and Community Design: 2023 - 2024",
     ]
   },
@@ -248,17 +248,56 @@ export default function Home() {
             <FadeIn>
               <div className="space-y-6 font-['Work_Sans'] text-[17px] leading-[1.65] text-[#1A1A1A]">
                 <p>
-                  Awo is heavily influenced by his friend and mentor the legendary Santa Fe lithographer/painter Ron Adams (6/25/34 – 11/10/20). Adams called Awo's work "...challenging & daring," & stated "...you won't see anything like them anywhere else."
+                  Jose Awo is an Atlanta-based artist known for a dynamic, versatile body of work that includes abstract expressionism, bold illustration, and stylized photographic alteration. His art powerfully conveys intense inner emotion and delves into urban and historical narratives.
                 </p>
+                <blockquote className="border-l-4 border-[#B7410E] pl-4 my-6 italic text-[#1A1A1A]/90">
+                  "...challenging & daring — you won't see anything like them anywhere else."
+                  <span className="block text-[14px] font-medium not-italic mt-2 uppercase tracking-wider text-[#B7410E]">
+                    — Ron Adams, Legendary Santa Fe Lithographer
+                  </span>
+                </blockquote>
+                
+                <div className="pt-4">
+                  <h3 className="font-['Space_Grotesk'] text-[18px] font-medium tracking-[1.5px] uppercase mb-4 text-[#B7410E]">
+                    Key Artistic Themes and Styles:
+                  </h3>
+                  <div className="space-y-4 font-['Work_Sans'] text-[16px] text-[#1A1A1A]/90">
+                    <p>
+                      <strong className="font-['Space_Grotesk'] text-[14px] tracking-[1px] uppercase text-[#1A1A1A] block mb-1">Abstract Expressionism:</strong>
+                      Characterized by energetic, free-form paintings, often utilizing an earthy palette and featuring fragmented human forms.
+                    </p>
+                    <p>
+                      <strong className="font-['Space_Grotesk'] text-[14px] tracking-[1px] uppercase text-[#1A1A1A] block mb-1">Urban & Historical Narrative:</strong>
+                      Impressionistic works that focus on African-American history and the Civil Rights Movement.
+                    </p>
+                    <p>
+                      <strong className="font-['Space_Grotesk'] text-[14px] tracking-[1px] uppercase text-[#1A1A1A] block mb-1">Mixed Media:</strong>
+                      Layers of multi media artifacts and color applied over underlying figurative imagery.
+                    </p>
+                    <p>
+                      <strong className="font-['Space_Grotesk'] text-[14px] tracking-[1px] uppercase text-[#1A1A1A] block mb-1">Public Art:</strong>
+                      Large-scale, layered abstract works and murals, distinguished by bold lines and vivid colors (e.g., the notable "Broad Strokes on Broad Street").
+                    </p>
+                  </div>
+                </div>
+
                 <p>
-                  Atlanta-based conceptual artist Jose Awo draws inspiration from international travels to create sublime pieces that are "challenging and daring."
+                  Awo's portfolio is defined by its energetic compositions, bold color, and a consistent focus on the human figure, the urban environment, and historical context, all rendered through a contemporary, expressionistic lens.
                 </p>
-                <p>
-                  Using repurposed materials such as industrial glass, he has refined his own visual and conceptual vocabulary to create the dramatic. Awo's pieces are deconstructed and pure, with a studied appreciation of life's overlooked treasures. His artwork is designed to draw viewers into a reflective state of self-examination.
-                </p>
-                <p>
-                  Through the use of powerful imagery, colors and materials, Awo's art highlights what's happening in society causing the viewer to ponder several societal issues -- such as the plight of the unhoused -- in perhaps a new and different light.
-                </p>
+
+                <div className="pt-6 border-t border-[#D4D0CB]">
+                  <h3 className="font-['Space_Grotesk'] text-[18px] font-medium tracking-[1.5px] uppercase mb-4 text-[#B7410E]">
+                    Artist’s Statement
+                  </h3>
+                  <div className="space-y-4 font-['Work_Sans'] text-[16px]">
+                    <p className="italic">
+                      "My work as a conceptual artist is a reflection on the dramatic, sublime, and often challenging nature of human experience, deeply rooted in my culture, environment, and commitment to youth. I aim to create a challenging and daring body of work with a unique visual and conceptual style."
+                    </p>
+                    <p>
+                      A defining characteristic of my practice is the integration of rediscovered and repurposed materials which transform the overlooked into the profound and give new life to forgotten narratives.
+                    </p>
+                  </div>
+                </div>
                 
                 <div className="pt-8">
                   <a href="/Jose_Awo_Artist_CV_Art_In_Reflection.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 group border-2 border-[#1A1A1A] px-6 py-3 relative overflow-hidden transition-colors duration-300">
@@ -405,7 +444,7 @@ export default function Home() {
               Johnny Gant Event <br/>(Atlanta City Hall)
             </h2>
             <p className="font-['Work_Sans'] text-[17px] leading-[1.65] text-[#D4D0CB]">
-              The Atlanta City Council recognized celebrated boxer Johnny L. Gant Sr.’s outstanding humanitarianism and contributions to training athletes and the sport of boxing; his lifetime of accomplishments in sport, education, and business; and a legacy of kind heartedness as a philanthropist, boxer, and trainer of future Olympians and professional boxing athletes and designated August 1, 2022 as Johnny L. Gant Sr. Day. Jose Āwo was commissioned to create a piece to commemorate the day which hangs in the council chamber.
+              The Atlanta City Council recognized celebrated boxer Johnny L. Gant Sr.’s outstanding humanitarianism and contributions to training athletes and the sport of boxing; his lifetime of accomplishments in sports, education, and business; and a legacy of kind heartedness as a philanthropist, boxer, and trainer of future Olympians and professional boxing athletes and designated August 1, 2022 as Johnny L. Gant Sr. Day. Jose Āwo was commissioned to create a piece to commemorate the day which hangs in the council chamber.
             </p>
           </FadeIn>
         </div>
@@ -423,10 +462,7 @@ export default function Home() {
             <FadeIn>
               <div className="space-y-6 font-['Work_Sans'] text-[17px] leading-[1.65] text-[#1A1A1A]">
                 <p>
-                  The project, organized and curated by the Mayor’s Office of Cultural Affairs (OCA) Public Art Program, provided opportunities for five local artists to showcase their work and artistic process by creating a temporary mural on a wall within the Broad Street boardwalk area between Martin Luther King Jr. Dr. and Mitchell St. in downtown Atlanta.
-                </p>
-                <p>
-                  Broad Strokes on Broad Street is an art exhibit created by international conceptual artist Jose Āwo and was designed to bring increased attention to the plight of Atlanta’s un-homed community. The Broad Strokes on Broad Street journey consisted of a series of events advocating against homelessness in Atlanta by leveraging art activism, with a goal of providing a voice from and a window into heartfelt discussions and the experiences of the un-homed.
+                  Broad Strokes on Broad Street, organized and curated by the Mayor’s Office of Cultural Affairs (OCA) Public Art Program, is an art exhibit created by international conceptual artist Jose Āwo and was designed to bring increased attention to the plight of Atlanta’s un-homed community. The Broad Strokes on Broad Street journey consisted of a series of events advocating against homelessness in Atlanta by leveraging art activism, with a goal of providing a voice from and a window into heartfelt discussions and the experiences of the un-homed.
                 </p>
                 <p>
                   An Atlanta native, Āwo donated all proceeds from the installation to CaringWorks, a local agency that is working to end homelessness by providing comprehensive services and resources to the un-homed. Attendees experienced Āwo's talents through an interactive, multi-media exhibit that incorporated painting installations featuring QR codes. The codes launched clips featuring members of the un-housed community who shed light on the issue. The exhibit was presented by the City Atlanta Department of Planning and Urban Design.

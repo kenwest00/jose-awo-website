@@ -9,7 +9,7 @@ import { Footer } from "@/components/Footer";
 // Dummy data map for artworks
 const ARTWORKS: Record<string, any> = {
   "butts-county": {
-    title: "Butt's County Medical Center",
+    title: "Butts County Medical Center",
     img: "/works/butts-county.webp",
     year: "2018",
     medium: "Flovilla mix Media Collage, oil & acrylic watercolors",
@@ -29,7 +29,7 @@ const ARTWORKS: Record<string, any> = {
     note: ""
   },
   "wedding-party": {
-    title: "The wedding party",
+    title: "The Wedding Party",
     img: "/works/wedding-party.webp",
     year: "2016",
     medium: "Oil in acrylic on canvas",
@@ -39,7 +39,7 @@ const ARTWORKS: Record<string, any> = {
     note: ""
   },
   "sweet-auburn": {
-    title: "Sweet auburn",
+    title: "Sweet Auburn",
     img: "/works/sweet-auburn.webp",
     year: "2024",
     medium: "Oil pastel on paper",
@@ -49,7 +49,7 @@ const ARTWORKS: Record<string, any> = {
     note: '"https://www.artsatl.org/what-to-see-do-and-hear-atlanta-stories-a-nest-of-jazz-trans-cinema-more/"'
   },
   "changed-of-mind": {
-    title: "Changed of Mind",
+    title: "Change of Mind",
     img: "/works/changed-of-mind.webp",
     year: "2010",
     medium: "Oil and acrylic on industrial glass",
