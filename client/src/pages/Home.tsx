@@ -158,14 +158,28 @@ export default function Home() {
     );
   };
 
-  const handleContactSubmit = (e: React.FormEvent) => {
+  const handleContactSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
+    
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData as any).toString()
+    })
+    .then(() => {
       setIsSubmitting(false);
       setIsSuccess(true);
+      form.reset();
       setTimeout(() => setIsSuccess(false), 5000);
-    }, 1500);
+    })
+    .catch((error) => {
+      console.error(error);
+      setIsSubmitting(false);
+    });
   };
 
   return (
@@ -495,19 +509,32 @@ export default function Home() {
               Contact José
             </h2>
 
-            <form onSubmit={handleContactSubmit} className="space-y-8 bg-[#2A2A2A] p-8 md:p-12 border-t-4 border-[#B7410E]">
+            <form 
+              name="contact" 
+              method="POST" 
+              data-netlify="true" 
+              data-netlify-honeypot="bot-field"
+              onSubmit={handleContactSubmit} 
+              className="space-y-8 bg-[#2A2A2A] p-8 md:p-12 border-t-4 border-[#B7410E]"
+            >
+              {/* Hidden fields for Netlify Forms */}
+              <input type="hidden" name="form-name" value="contact" />
+              <p className="hidden">
+                <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+              </p>
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="group relative">
                   <label className="font-['Space_Grotesk'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#B7410E] transition-colors duration-200 block mb-2">
                     First Name
                   </label>
-                  <input type="text" required className="w-full bg-transparent border-b-2 border-[#555] focus:border-[#B7410E] py-3 px-2 focus:bg-[#B7410E]/10 font-['Work_Sans'] text-[17px] text-[#F5F0EB] outline-none transition-all duration-300" />
+                  <input type="text" name="firstName" required className="w-full bg-transparent border-b-2 border-[#555] focus:border-[#B7410E] py-3 px-2 focus:bg-[#B7410E]/10 font-['Work_Sans'] text-[17px] text-[#F5F0EB] outline-none transition-all duration-300" />
                 </div>
                 <div className="group relative">
                   <label className="font-['Space_Grotesk'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#B7410E] transition-colors duration-200 block mb-2">
                     Last Name
                   </label>
-                  <input type="text" required className="w-full bg-transparent border-b-2 border-[#555] focus:border-[#B7410E] py-3 px-2 focus:bg-[#B7410E]/10 font-['Work_Sans'] text-[17px] text-[#F5F0EB] outline-none transition-all duration-300" />
+                  <input type="text" name="lastName" required className="w-full bg-transparent border-b-2 border-[#555] focus:border-[#B7410E] py-3 px-2 focus:bg-[#B7410E]/10 font-['Work_Sans'] text-[17px] text-[#F5F0EB] outline-none transition-all duration-300" />
                 </div>
               </div>
 
@@ -515,21 +542,21 @@ export default function Home() {
                 <label className="font-['Space_Grotesk'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#B7410E] transition-colors duration-200 block mb-2">
                   Email
                 </label>
-                <input type="email" required className="w-full bg-transparent border-b-2 border-[#555] focus:border-[#B7410E] py-3 px-2 focus:bg-[#B7410E]/10 font-['Work_Sans'] text-[17px] text-[#F5F0EB] outline-none transition-all duration-300" />
+                <input type="email" name="email" required className="w-full bg-transparent border-b-2 border-[#555] focus:border-[#B7410E] py-3 px-2 focus:bg-[#B7410E]/10 font-['Work_Sans'] text-[17px] text-[#F5F0EB] outline-none transition-all duration-300" />
               </div>
 
               <div className="group relative">
                 <label className="font-['Space_Grotesk'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#B7410E] transition-colors duration-200 block mb-2">
                   Subject
                 </label>
-                <input type="text" required className="w-full bg-transparent border-b-2 border-[#555] focus:border-[#B7410E] py-3 px-2 focus:bg-[#B7410E]/10 font-['Work_Sans'] text-[17px] text-[#F5F0EB] outline-none transition-all duration-300" />
+                <input type="text" name="subject" required className="w-full bg-transparent border-b-2 border-[#555] focus:border-[#B7410E] py-3 px-2 focus:bg-[#B7410E]/10 font-['Work_Sans'] text-[17px] text-[#F5F0EB] outline-none transition-all duration-300" />
               </div>
 
               <div className="group relative">
                 <label className="font-['Space_Grotesk'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] group-focus-within:text-[#B7410E] transition-colors duration-200 block mb-2">
                   Message
                 </label>
-                <textarea rows={5} required className="w-full bg-transparent border-b-2 border-[#555] focus:border-[#B7410E] py-3 px-2 focus:bg-[#B7410E]/10 font-['Work_Sans'] text-[17px] text-[#F5F0EB] outline-none transition-all duration-300 resize-none" />
+                <textarea rows={5} name="message" required className="w-full bg-transparent border-b-2 border-[#555] focus:border-[#B7410E] py-3 px-2 focus:bg-[#B7410E]/10 font-['Work_Sans'] text-[17px] text-[#F5F0EB] outline-none transition-all duration-300 resize-none" />
               </div>
 
               <button 

@@ -72,6 +72,40 @@ export default function ArtworkDetail() {
   const nextId = currentIndex < keys.length - 1 ? keys[currentIndex + 1] : keys[0];
   
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isInquirySubmitting, setIsInquirySubmitting] = useState(false);
+  const [isInquirySuccess, setIsInquirySuccess] = useState(false);
+
+  const handleInquirySubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsInquirySubmitting(true);
+    
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    
+    // Explicitly add readonly fields if they don't submit naturally
+    if (!formData.has("subject")) {
+      formData.append("subject", `Inquiry regarding: ${artwork.title}`);
+    }
+
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData as any).toString()
+    })
+    .then(() => {
+      setIsInquirySubmitting(false);
+      setIsInquirySuccess(true);
+      form.reset();
+      setTimeout(() => {
+        setIsInquirySuccess(false);
+        setIsModalOpen(false);
+      }, 2000);
+    })
+    .catch((error) => {
+      console.error(error);
+      setIsInquirySubmitting(false);
+    });
+  };
 
   return (
     <div className="concept-1 bg-[#F5F0EB] text-[#1A1A1A] min-h-screen flex flex-col justify-between">
@@ -170,13 +204,27 @@ export default function ArtworkDetail() {
               Inquire
             </h3>
             
-            <form className="space-y-6">
+            <form 
+              name="inquiry" 
+              method="POST"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
+              onSubmit={handleInquirySubmit}
+              className="space-y-6"
+            >
+              {/* Hidden fields for Netlify Forms */}
+              <input type="hidden" name="form-name" value="inquiry" />
+              <p className="hidden">
+                <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+              </p>
+
               <div className="group">
                 <label className="font-['Space_Grotesk'] text-[12px] tracking-[1.5px] uppercase text-[#A0A0A0] block mb-2">
                   Subject
                 </label>
                 <input
                   type="text"
+                  name="subject"
                   readOnly
                   value={`Inquiry regarding: ${artwork.title}`}
                   className="w-full bg-transparent border-b-2 border-[#D4D0CB] py-3 font-['Work_Sans'] text-[15px] text-[#1A1A1A] outline-none opacity-70 cursor-not-allowed"
@@ -189,6 +237,7 @@ export default function ArtworkDetail() {
                 </label>
                 <input
                   type="text"
+                  name="name"
                   required
                   className="w-full bg-transparent border-b-2 border-[#D4D0CB] focus:border-[#B7410E] py-3 font-['Work_Sans'] text-[15px] text-[#1A1A1A] outline-none transition-colors duration-200"
                 />
@@ -200,6 +249,7 @@ export default function ArtworkDetail() {
                 </label>
                 <input
                   type="email"
+                  name="email"
                   required
                   className="w-full bg-transparent border-b-2 border-[#D4D0CB] focus:border-[#B7410E] py-3 font-['Work_Sans'] text-[15px] text-[#1A1A1A] outline-none transition-colors duration-200"
                 />
@@ -211,19 +261,20 @@ export default function ArtworkDetail() {
                 </label>
                 <textarea
                   rows={4}
+                  name="message"
                   required
                   className="w-full bg-transparent border-b-2 border-[#D4D0CB] focus:border-[#B7410E] py-3 font-['Work_Sans'] text-[15px] text-[#1A1A1A] outline-none transition-colors duration-200 resize-none"
                 />
               </div>
               
               <button 
-                type="button"
-                onClick={() => setIsModalOpen(false)}
-                className="relative group w-full border-2 border-[#B7410E] py-4 overflow-hidden transition-colors duration-300 mt-4 cursor-pointer"
+                type="submit"
+                disabled={isInquirySubmitting || isInquirySuccess}
+                className="relative group w-full border-2 border-[#B7410E] py-4 overflow-hidden transition-colors duration-300 mt-4 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                <span className="absolute inset-0 bg-[#B7410E] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
-                <span className="relative font-['Space_Grotesk'] text-[14px] tracking-[1.5px] uppercase text-[#B7410E] group-hover:text-[#F5F0EB] transition-colors duration-300">
-                  Send Inquiry
+                {!isInquirySuccess && <span className="absolute inset-0 bg-[#B7410E] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />}
+                <span className="relative font-['Space_Grotesk'] text-[14px] tracking-[1.5px] uppercase transition-colors duration-300 text-[#B7410E] group-hover:text-[#F5F0EB]">
+                  {isInquirySubmitting ? "Sending..." : isInquirySuccess ? "Sent Successfully" : "Send Inquiry"}
                 </span>
               </button>
             </form>

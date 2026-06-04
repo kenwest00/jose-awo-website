@@ -26,6 +26,22 @@
   </head>
 
   <body>
+    <!-- Hidden forms to let Netlify's post-processing bot find and register the contact forms -->
+    <form name="contact" netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="firstName" />
+      <input type="text" name="lastName" />
+      <input type="email" name="email" />
+      <input type="text" name="subject" />
+      <textarea name="message"></textarea>
+    </form>
+
+    <form name="inquiry" netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="subject" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <textarea name="message"></textarea>
+    </form>
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     <script
